@@ -51,6 +51,7 @@ class CaseStudyBase(BaseModel):
     source_url: str | None = None
     source_type: str = "GENERATED"
     subtopic_id: int
+    estimated_time: int = PydanticField(ge=5, le=240)  # Time in minutes, between 5min and 4hrs
 
 
 class CaseStudyCreate(CaseStudyBase):

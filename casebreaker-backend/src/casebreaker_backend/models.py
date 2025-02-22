@@ -45,6 +45,7 @@ class CaseStudy(Base):
     last_updated = Column(DateTime, default=datetime.utcnow)
     share_slug = Column(String, unique=True)
     created_at = Column(DateTime, default=datetime.utcnow)
+    estimated_time = Column(Integer)  # Time in minutes
     
     subtopic = relationship("Subtopic", back_populates="case_studies")
     sessions = relationship("Session", back_populates="case_study")

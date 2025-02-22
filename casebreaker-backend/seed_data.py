@@ -22,16 +22,16 @@ FIELDS = [
                         "learning_objectives": [
                             "Understanding genetic testing methodologies",
                             "Interpreting genomic data for clinical decisions",
-                            "Ethical considerations in genetic medicine"
+                            "Ethical considerations in genetic medicine",
                         ],
                         "context_materials": {
                             "background": "Evolution of genomic medicine",
                             "key_concepts": [
                                 "DNA sequencing technologies",
                                 "Pharmacogenomics",
-                                "Genetic counseling principles"
+                                "Genetic counseling principles",
                             ],
-                            "required_reading": "Principles of Genomic Medicine, 2nd Edition"
+                            "required_reading": "Principles of Genomic Medicine, 2nd Edition",
                         },
                         "checkpoints": [
                             {
@@ -40,32 +40,29 @@ FIELDS = [
                                 "description": "Evaluate different genetic testing methods and their applications",
                                 "hints": [
                                     "Consider both diagnostic and predictive testing"
-                                ]
+                                ],
                             },
                             {
                                 "id": "2",
                                 "title": "Clinical Integration",
                                 "description": "Design a treatment plan based on genetic test results",
-                                "hints": [
-                                    "Think about drug metabolism variations"
-                                ]
+                                "hints": ["Think about drug metabolism variations"],
                             },
                             {
                                 "id": "3",
                                 "title": "Ethical Implications",
                                 "description": "Address ethical challenges in genomic medicine",
-                                "hints": [
-                                    "Consider privacy and discrimination issues"
-                                ]
-                            }
+                                "hints": ["Consider privacy and discrimination issues"],
+                            },
                         ],
                         "source_url": "http://example.com/genomic-medicine",
                         "source_type": "GENERATED",
-                        "share_slug": "personalized-genomic-medicine"
+                        "share_slug": "personalized-genomic-medicine",
+                        "estimated_time": 15,
                     }
-                ]
+                ],
             }
-        ]
+        ],
     },
     {
         "name": "Law",
@@ -123,6 +120,7 @@ FIELDS = [
                         "source_url": "http://example.com/miranda-rights",
                         "source_type": "GENERATED",
                         "share_slug": "miranda-rights-case",
+                        "estimated_time": 20,
                     },
                     {
                         "title": "Digital Evidence Collection",
@@ -168,11 +166,12 @@ FIELDS = [
                         "source_url": "http://example.com/digital-evidence",
                         "source_type": "GENERATED",
                         "share_slug": "digital-evidence-collection",
+                        "estimated_time": 10,
                     },
                 ],
             }
         ],
-    }
+    },
 ]
 
 
@@ -234,6 +233,7 @@ def seed_data():
                         source_url=case_data["source_url"],
                         source_type=case_data["source_type"],
                         share_slug=case_data["share_slug"],
+                        estimated_time=case_data["estimated_time"],
                         subtopic_id=subtopic.id,
                     )
                     db.add(case)
