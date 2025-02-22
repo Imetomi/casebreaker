@@ -2,13 +2,16 @@ from datetime import datetime
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel, Field as PydanticField
 
+
 class FieldBase(BaseModel):
     name: str
     description: str | None = None
     icon_url: str | None = None
 
+
 class FieldCreate(FieldBase):
     pass
+
 
 class Field(FieldBase):
     id: int
@@ -16,20 +19,25 @@ class Field(FieldBase):
     class Config:
         from_attributes = True
 
+
 class SubtopicBase(BaseModel):
     name: str
     description: str | None = None
     field_id: int
 
+
 class SubtopicCreate(SubtopicBase):
     pass
+
 
 class Subtopic(SubtopicBase):
     id: int
     field: Field
+    case_count: int = 0
 
     class Config:
         from_attributes = True
+
 
 class CaseStudyBase(BaseModel):
     title: str
@@ -40,11 +48,13 @@ class CaseStudyBase(BaseModel):
     context_materials: Dict[str, Any] = {}
     checkpoints: List[Dict[str, Any]] = []
     source_url: str | None = None
-    source_type: str = 'GENERATED'
+    source_type: str = "GENERATED"
     subtopic_id: int
+
 
 class CaseStudyCreate(CaseStudyBase):
     pass
+
 
 class CaseStudy(CaseStudyBase):
     id: int
@@ -56,13 +66,16 @@ class CaseStudy(CaseStudyBase):
     class Config:
         from_attributes = True
 
+
 class ChatMessageBase(BaseModel):
-    role: str = PydanticField(pattern='^(user|assistant)$')
+    role: str = PydanticField(pattern="^(user|assistant)$")
     content: str
     checkpoint_id: str | None = None
 
+
 class ChatMessageCreate(ChatMessageBase):
     pass
+
 
 class ChatMessage(ChatMessageBase):
     id: int
@@ -72,14 +85,17 @@ class ChatMessage(ChatMessageBase):
     class Config:
         from_attributes = True
 
+
 class SessionBase(BaseModel):
     case_study_id: int
     device_id: str
     completed_checkpoints: List[str] = []
-    status: str = 'active'
+    status: str = "active"
+
 
 class SessionCreate(SessionBase):
     pass
+
 
 class Session(SessionBase):
     id: int
