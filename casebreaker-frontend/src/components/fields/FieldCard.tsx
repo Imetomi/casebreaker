@@ -13,11 +13,16 @@ interface FieldCardProps {
 }
 
 export function FieldCard({ id, name, description, iconUrl }: FieldCardProps) {
+  // Check if iconUrl is a valid URL or use placeholder
+  const imageUrl = iconUrl && (iconUrl.startsWith('http://') || iconUrl.startsWith('https://')) 
+    ? iconUrl 
+    : '/images/placeholder.svg';
+
   return (
     <Card size="3" className="flex flex-col h-full">
       <div className="relative w-full h-48 mb-4 overflow-hidden rounded-lg">
         <Image
-          src={iconUrl || `/images/placeholder.svg`}
+          src={imageUrl}
           alt={name}
           fill
           className="object-cover"

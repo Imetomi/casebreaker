@@ -10,31 +10,31 @@ def seed_data():
         law = Field(
             name="Law",
             description="Explore real-world legal cases and ethical dilemmas across different areas of law.",
-            icon_url="https://placehold.co/600x400?text=Law",
+            icon_url="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&auto=format&fit=crop&q=60",
         )
 
         healthcare = Field(
             name="Healthcare",
             description="Analyze medical cases, diagnostic challenges, and healthcare management scenarios.",
-            icon_url="https://placehold.co/600x400?text=Healthcare",
+            icon_url="https://images.unsplash.com/photo-1631248055158-edec7a3c072b?w=800&auto=format&fit=crop&q=60",
         )
 
         economics = Field(
             name="Economics",
             description="Study economic principles through real business cases and market analyses.",
-            icon_url="https://placehold.co/600x400?text=Economics",
+            icon_url="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=60",
         )
 
         finance = Field(
             name="Finance",
             description="Master financial concepts through real-world investment and corporate finance cases.",
-            icon_url="https://placehold.co/600x400?text=Finance",
+            icon_url="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=60",
         )
 
         history = Field(
             name="History",
             description="Analyze pivotal historical events, decisions, and their lasting impact on society.",
-            icon_url="https://placehold.co/600x400?text=History",
+            icon_url="https://images.unsplash.com/photo-1461360370896-922624d12aa1?w=800&auto=format&fit=crop&q=60",
         )
 
         db.add_all([law, healthcare, economics, finance, history])
