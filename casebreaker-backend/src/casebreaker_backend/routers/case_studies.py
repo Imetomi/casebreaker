@@ -40,10 +40,30 @@ def create_case_study(case_study: CaseStudyCreate, db: Session = Depends(get_db)
 
 @router.get("/", response_model=List[CaseStudy])
 def list_case_studies(subtopic_id: int | None = None, db: Session = Depends(get_db)):
+    # Create a subquery to count cases per subtopic
+    from sqlalchemy import func
+    case_counts = (
+        db.query(CaseStudyModel.subtopic_id, func.count(CaseStudyModel.id).label('count'))
+        .group_by(CaseStudyModel.subtopic_id)
+        .subquery()
+    )
+    
+    # Join with the case counts
     query = db.query(CaseStudyModel)
     if subtopic_id:
         query = query.filter(CaseStudyModel.subtopic_id == subtopic_id)
-    return query.all()
+    
+    # Get all case studies
+    case_studies = query.all()
+    
+    # Get the counts for all relevant subtopics
+    subtopic_counts = dict(db.query(case_counts.c.subtopic_id, case_counts.c.count).all())
+    
+    # Update each case study's subtopic with its count
+    for case in case_studies:
+        case.subtopic.case_count = subtopic_counts.get(case.subtopic_id, 0)
+    
+    return case_studies
 
 
 @router.get("/{case_study_id}", response_model=CaseStudy)
