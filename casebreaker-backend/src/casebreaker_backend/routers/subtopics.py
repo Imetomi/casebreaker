@@ -20,7 +20,16 @@ def create_subtopic(subtopic: SubtopicCreate, db: Session = Depends(get_db)):
     db.add(db_subtopic)
     db.commit()
     db.refresh(db_subtopic)
-    return db_subtopic
+    
+    # Convert to response model with case count
+    return {
+        "id": db_subtopic.id,
+        "name": db_subtopic.name,
+        "description": db_subtopic.description,
+        "field_id": db_subtopic.field_id,
+        "field": db_subtopic.field,
+        "case_count": 0  # New subtopic has no cases
+    }
 
 
 @router.get("/", response_model=List[Subtopic])
@@ -49,11 +58,23 @@ def list_subtopics(field_id: int | None = None, db: Session = Depends(get_db)):
 @router.get("/{subtopic_id}", response_model=Subtopic)
 def get_subtopic(subtopic_id: int, db: Session = Depends(get_db)):
     db_subtopic = (
-        db.query(SubtopicModel).filter(SubtopicModel.id == subtopic_id).first()
+        db.query(SubtopicModel)
+        .options(joinedload(SubtopicModel.case_studies))
+        .filter(SubtopicModel.id == subtopic_id)
+        .first()
     )
     if db_subtopic is None:
         raise HTTPException(status_code=404, detail="Subtopic not found")
-    return db_subtopic
+    
+    # Convert to response model with case count
+    return {
+        "id": db_subtopic.id,
+        "name": db_subtopic.name,
+        "description": db_subtopic.description,
+        "field_id": db_subtopic.field_id,
+        "field": db_subtopic.field,
+        "case_count": len(db_subtopic.case_studies)
+    }
 
 
 @router.delete("/{subtopic_id}")
