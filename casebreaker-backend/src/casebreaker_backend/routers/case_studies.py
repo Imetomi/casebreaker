@@ -68,11 +68,22 @@ def list_case_studies(subtopic_id: int | None = None, db: Session = Depends(get_
 
 @router.get("/{case_study_id}", response_model=CaseStudy)
 def get_case_study(case_study_id: int, db: Session = Depends(get_db)):
+    # Get the case study
     db_case_study = (
         db.query(CaseStudyModel).filter(CaseStudyModel.id == case_study_id).first()
     )
     if db_case_study is None:
         raise HTTPException(status_code=404, detail="Case study not found")
+    
+    # Get the case count for the subtopic
+    from sqlalchemy import func
+    case_count = db.query(func.count(CaseStudyModel.id)).filter(
+        CaseStudyModel.subtopic_id == db_case_study.subtopic_id
+    ).scalar()
+    
+    # Set the case count
+    db_case_study.subtopic.case_count = case_count
+    
     return db_case_study
 
 
