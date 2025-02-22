@@ -32,6 +32,22 @@ export interface Session {
   created_at: string;
 }
 
+export interface Field {
+  id: number;
+  name: string;
+  description: string;
+  icon_url: string | null;
+}
+
+export interface Subtopic {
+  id: number;
+  name: string;
+  description: string;
+  field_id: number;
+  field: Field;
+  case_count: number;
+}
+
 export class ApiClient {
   private async fetchWithRetry(
     url: string,
@@ -137,6 +153,30 @@ export class ApiClient {
       }
     );
 
+    return response.json();
+  }
+
+  async getField(fieldId: number): Promise<Field> {
+    const response = await this.fetchWithRetry(`${API_BASE_URL}/fields/${fieldId}`, {
+      method: 'GET',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch field');
+    }
+    
+    return response.json();
+  }
+
+  async getSubtopics(fieldId: number): Promise<Subtopic[]> {
+    const response = await this.fetchWithRetry(`${API_BASE_URL}/subtopics/?field_id=${fieldId}`, {
+      method: 'GET',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch subtopics');
+    }
+    
     return response.json();
   }
 }

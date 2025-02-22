@@ -18,7 +18,7 @@ def seed_data():
         law = Field(
             name="Law",
             description="Legal studies and jurisprudence",
-            icon_url="https://example.com/law-icon.png"
+            icon_url="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800&auto=format&fit=crop&q=60"
         )
         db.add(law)
         db.commit()

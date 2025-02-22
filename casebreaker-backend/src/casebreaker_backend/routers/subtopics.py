@@ -30,11 +30,20 @@ def list_subtopics(field_id: int | None = None, db: Session = Depends(get_db)):
         query = query.filter(SubtopicModel.field_id == field_id)
     subtopics = query.all()
 
-    # Add case count for each subtopic
+    # Convert to response model with case count
+    response_subtopics = []
     for subtopic in subtopics:
-        subtopic.case_count = len(subtopic.case_studies)
+        subtopic_dict = {
+            "id": subtopic.id,
+            "name": subtopic.name,
+            "description": subtopic.description,
+            "field_id": subtopic.field_id,
+            "field": subtopic.field,
+            "case_count": len(subtopic.case_studies),
+        }
+        response_subtopics.append(subtopic_dict)
 
-    return subtopics
+    return response_subtopics
 
 
 @router.get("/{subtopic_id}", response_model=Subtopic)

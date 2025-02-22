@@ -33,10 +33,11 @@ class SubtopicCreate(SubtopicBase):
 class Subtopic(SubtopicBase):
     id: int
     field: Field
-    case_count: int = 0
+    case_count: int
 
     class Config:
         from_attributes = True
+        json_encoders = {property: lambda x: x}
 
 
 class CaseStudyBase(BaseModel):
