@@ -3,29 +3,41 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from typing import List, AsyncGenerator
 from datetime import datetime
+import json
+from ..services.claude import claude_service, format_sse
 
-from ..database import get_db
-from ..models import Session as SessionModel, CaseStudy as CaseStudyModel, ChatMessage as ChatMessageModel
+from ..database import get_db, SessionLocal
+from ..models import (
+    Session as SessionModel,
+    CaseStudy as CaseStudyModel,
+    ChatMessage as ChatMessageModel,
+)
 from ..schemas import Session, SessionCreate, ChatMessage, ChatMessageCreate
 from ..services.claude import claude_service
 
-router = APIRouter(
-    prefix="/sessions",
-    tags=["sessions"]
-)
+router = APIRouter(prefix="/sessions", tags=["sessions"])
+
 
 @router.post("/", response_model=Session)
 def create_session(session: SessionCreate, db: Session = Depends(get_db)):
     # Verify case study exists
-    case_study = db.query(CaseStudyModel).filter(CaseStudyModel.id == session.case_study_id).first()
+    case_study = (
+        db.query(CaseStudyModel)
+        .filter(CaseStudyModel.id == session.case_study_id)
+        .first()
+    )
     if not case_study:
         raise HTTPException(status_code=404, detail="Case study not found")
-    
-    db_session = SessionModel(**session.model_dump())
+
+    # Create session data with empty completed_checkpoints list
+    session_data = session.model_dump()
+    session_data["completed_checkpoints"] = []
+    db_session = SessionModel(**session_data)
     db.add(db_session)
     db.commit()
     db.refresh(db_session)
     return db_session
+
 
 @router.get("/", response_model=List[Session])
 def list_sessions(device_id: str | None = None, db: Session = Depends(get_db)):
@@ -34,6 +46,7 @@ def list_sessions(device_id: str | None = None, db: Session = Depends(get_db)):
         query = query.filter(SessionModel.device_id == device_id)
     return query.all()
 
+
 @router.get("/{session_id}", response_model=Session)
 def get_session(session_id: int, db: Session = Depends(get_db)):
     db_session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
@@ -41,22 +54,19 @@ def get_session(session_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Session not found")
     return db_session
 
+
 @router.post("/{session_id}/messages")
 async def create_chat_message(
-    session_id: int,
-    message: ChatMessageCreate,
-    db: Session = Depends(get_db)
+    session_id: int, message: ChatMessageCreate, db: Session = Depends(get_db)
 ):
     # Verify session exists
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    
+
     # Save user message
     db_message = ChatMessageModel(
-        **message.model_dump(),
-        session_id=session_id,
-        timestamp=datetime.utcnow()
+        **message.model_dump(), session_id=session_id, timestamp=datetime.utcnow()
     )
     db.add(db_message)
     db.commit()
@@ -73,35 +83,81 @@ async def create_chat_message(
 
     # Get case study and checkpoint info
     case_study = session.case_study
-    checkpoint = next(
-        (cp for cp in case_study.checkpoints if cp["id"] == message.checkpoint_id),
-        None
-    ) if message.checkpoint_id else None
+    checkpoint = (
+        next(
+            (cp for cp in case_study.checkpoints if cp["id"] == message.checkpoint_id),
+            None,
+        )
+        if message.checkpoint_id
+        else None
+    )
 
     if not checkpoint:
         raise HTTPException(status_code=400, detail="Invalid checkpoint ID")
 
-    # Stream the AI response
-    async def generate_and_save_response() -> AsyncGenerator[str, None]:
-        response_content = ""
-        async for chunk in claude_service.generate_response(
-            messages=messages,
-            case_study=case_study.__dict__,
-            checkpoint=checkpoint
-        ):
-            response_content += chunk
-            yield chunk
+    # Create a new database session for the async generator
+    async_db = SessionLocal()
 
-        # Save the complete AI response
-        ai_message = ChatMessageModel(
-            role="assistant",
-            content=response_content,
-            session_id=session_id,
-            checkpoint_id=message.checkpoint_id,
-            timestamp=datetime.utcnow()
-        )
-        db.add(ai_message)
-        db.commit()
+    # Stream the AI response
+    async def generate_and_save_response():
+        response_content = ""
+        try:
+            print("Starting response generation...")
+            async for chunk in claude_service.generate_response(
+                messages=messages,
+                case_study={
+                    "title": case_study.title,
+                    "description": case_study.description,
+                    "learning_objectives": case_study.learning_objectives,
+                    "context_materials": case_study.context_materials,
+                    "checkpoints": case_study.checkpoints,
+                },
+                checkpoint=checkpoint,
+            ):
+                yield chunk
+                # Extract content from chunk if it's a text chunk
+                try:
+                    # Extract the data line from the SSE chunk
+                    lines = chunk.strip().split('\n')
+                    data_line = next((line for line in lines if line.startswith('data: ')), None)
+                    if data_line:
+                        # Remove 'data: ' prefix
+                        data_str = data_line.replace('data: ', '', 1).strip()
+                        data = json.loads(data_str)
+                        if data["type"] == "chunk":
+                            response_content += data["data"]
+                            print(f"Accumulated content length: {len(response_content)}")
+                except Exception as e:
+                    print(f"Error parsing chunk: {str(e)}")
+                    print(f"Raw chunk: {chunk}")
+                    pass
+
+            print(f"Final response content length: {len(response_content)}")
+            # Only save if we accumulated some content
+            if response_content:
+                print("Saving assistant message...")
+                ai_message = ChatMessageModel(
+                    role="assistant",
+                    content=response_content,
+                    session_id=session_id,
+                    checkpoint_id=message.checkpoint_id,
+                    timestamp=datetime.utcnow(),
+                )
+                async_db.add(ai_message)
+                async_db.commit()
+                print("Assistant message saved successfully")
+            else:
+                print("No content accumulated, skipping save")
+
+        except Exception as e:
+            print(f"Error generating response: {str(e)}")
+            error_msg = format_sse(
+                {"type": "error", "data": f"Error generating response: {str(e)}"},
+                "error",
+            )
+            yield error_msg
+        finally:
+            async_db.close()
 
     return StreamingResponse(
         generate_and_save_response(),
@@ -109,9 +165,10 @@ async def create_chat_message(
         headers={
             "Cache-Control": "no-cache",
             "Connection": "keep-alive",
-            "Content-Type": "text/event-stream"
-        }
+            "Content-Type": "text/event-stream",
+        },
     )
+
 
 @router.get("/{session_id}/messages", response_model=List[ChatMessage])
 def list_chat_messages(session_id: int, db: Session = Depends(get_db)):
@@ -119,19 +176,36 @@ def list_chat_messages(session_id: int, db: Session = Depends(get_db)):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
-    
-    return db.query(ChatMessageModel).filter(ChatMessageModel.session_id == session_id).all()
 
-@router.patch("/{session_id}/complete-checkpoint")
-def complete_checkpoint(session_id: int, checkpoint_id: str, db: Session = Depends(get_db)):
+    return (
+        db.query(ChatMessageModel)
+        .filter(ChatMessageModel.session_id == session_id)
+        .all()
+    )
+
+
+@router.post("/{session_id}/checkpoints/{checkpoint_id}")
+def complete_checkpoint(
+    session_id: int, checkpoint_id: str, db: Session = Depends(get_db)
+):
+    # Get session and verify it exists
     db_session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if db_session is None:
         raise HTTPException(status_code=404, detail="Session not found")
-    
+
+    # Get case study and verify checkpoint exists
+    case_study = db_session.case_study
+    checkpoint_exists = any(cp["id"] == checkpoint_id for cp in case_study.checkpoints)
+    if not checkpoint_exists:
+        raise HTTPException(
+            status_code=404, detail="Checkpoint not found in case study"
+        )
+
+    # Update completed checkpoints
     completed = db_session.completed_checkpoints or []
     if checkpoint_id not in completed:
         completed.append(checkpoint_id)
         db_session.completed_checkpoints = completed
         db.commit()
-    
-    return {"message": "Checkpoint completed"}
+
+    return {"message": "Checkpoint completed", "completed_checkpoints": completed}
