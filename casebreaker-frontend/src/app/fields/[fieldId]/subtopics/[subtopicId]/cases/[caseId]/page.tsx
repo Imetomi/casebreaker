@@ -45,7 +45,7 @@ export default async function CasePage({
             <Text size="4" as="p" color="gray" className="max-w-2xl mx-auto">
               {caseStudy.description}
             </Text>
-            <div className="flex justify-center gap-2 mb-6">
+            <div className="flex justify-center gap-2 mt-6">
               <Badge size="2" color={difficultyColor}>
                 {caseStudy.difficulty}
               </Badge>
@@ -56,9 +56,10 @@ export default async function CasePage({
           </div>
         </div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Context Materials */}
           {(caseStudy.contextMaterials.background || caseStudy.contextMaterials.keyConcepts.length > 0 || caseStudy.contextMaterials.requiredReading) && (
-            <Card className="p-6">
+            <Card className="p-6 h-full">
               <Flex gap="2" align="center" mb="4">
                 <Book className="w-5 h-5" />
                 <Heading size="4">Context Materials</Heading>
@@ -92,8 +93,9 @@ export default async function CasePage({
             </Card>
           )}
 
+          {/* Learning Objectives */}
           {caseStudy.learningObjectives.length > 0 && (
-            <Card className="p-6">
+            <Card className="p-6 h-full">
               <Flex gap="2" align="center" mb="4">
                 <Lightbulb className="w-5 h-5" />
                 <Heading size="4">Learning Objectives</Heading>
@@ -108,38 +110,14 @@ export default async function CasePage({
             </Card>
           )}
 
-          {caseStudy.checkpoints.length > 0 && (
-            <Card className="p-6">
-              <Heading size="4" className="mb-6">Checkpoints</Heading>
-              <div className="space-y-8">
-                {caseStudy.checkpoints.map((checkpoint) => (
-                  <div key={checkpoint.id} className="space-y-2">
-                    <Heading size="3">{checkpoint.title}</Heading>
-                    <Text as="p" size="2" color="gray">{checkpoint.description}</Text>
-                    {checkpoint.hints?.length > 0 && (
-                      <Box mt="4">
-                        <Text size="2" weight="bold">Hints:</Text>
-                        <ul className="list-disc pl-5 mt-1">
-                          {checkpoint.hints.map((hint, index) => (
-                            <li key={index}>
-                              <Text size="2" color="gray">{hint}</Text>
-                            </li>
-                          ))}
-                        </ul>
-                      </Box>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
-
-          <Link href={`/fields/${params.fieldId}/subtopics/${params.subtopicId}/cases/${caseId}/chat`} className="block">
-            <Button size="4" className="w-full">
-              <MessageSquare className="w-5 h-5 mr-2" />
-              Solve Case Study
-            </Button>
-          </Link>
+          <div className="col-span-1 md:col-span-2 flex justify-center mt-8">
+            <Link href={`/fields/${params.fieldId}/subtopics/${params.subtopicId}/cases/${caseId}/chat`}>
+              <Button size="4">
+                <MessageSquare className="w-5 h-5 mr-2" />
+                Start Case Study
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </Container>

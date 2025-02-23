@@ -81,10 +81,10 @@ Feel free to ask any questions!`;
       <BackButton />
       
       <div className="mb-8">
-        <Heading size="8" className="mb-4" highContrast>
+        <Heading size="8" className="text-center mb-4" highContrast>
           {caseStudy.title}
         </Heading>
-        <Text size="4" as="p" color="gray">
+        <Text size="4" as="p" color="gray" className="text-center">
           Discuss the case with our AI tutor to deepen your understanding.
         </Text>
       </div>
