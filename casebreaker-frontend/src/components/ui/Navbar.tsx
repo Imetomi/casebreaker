@@ -28,7 +28,11 @@ export function Navbar() {
                 <Link>Pricing</Link>
               </NextLink>
             </Flex>
-            <Button variant="solid">Get started</Button>
+            <NextLink href="/fields" passHref legacyBehavior>
+              <Button variant="solid" asChild>
+                <Link className="cursor-pointer">Get started</Link>
+              </Button>
+            </NextLink>
           </Flex>
         </Flex>
       </Container>
