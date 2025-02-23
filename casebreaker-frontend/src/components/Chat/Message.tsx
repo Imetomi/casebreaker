@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, Text, Avatar } from '@radix-ui/themes';
-import { User, Bot } from 'lucide-react';
+import { GraduationCap, UserCircle2 } from 'lucide-react';
 
 interface MessageProps {
   content: string;
@@ -14,13 +14,13 @@ export function Message({ content, isUser }: MessageProps) {
       <Avatar
         size="2"
         radius="full"
-        fallback={isUser ? <User className="p-1" /> : <Bot className="p-1" />}
-        className={isUser ? 'bg-blue-500 text-white' : 'bg-gray-500 text-white'}
+        fallback={isUser ? <UserCircle2 className="p-1" /> : <GraduationCap className="p-1" />}
+        className={isUser ? 'bg-cyan-500 text-white' : 'bg-purple-500 text-white'}
       />
       <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} max-w-[70%]`}>
         <Card
           size="1"
-          className={`${isUser ? 'bg-blue-50' : 'bg-gray-50'}`}
+          className={`${isUser ? 'bg-cyan-50' : 'bg-purple-50'}`}
           style={{ marginBottom: 'var(--space-1)' }}
         >
           <Text as="p" size="2" className="whitespace-pre-wrap">

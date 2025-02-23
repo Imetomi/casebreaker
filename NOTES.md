@@ -1,0 +1,1 @@
+https://myadlm.org/science-and-research/clinical-chemistry/clinical-case-studies/2025/an-unexpectedly-high-ige-level-during-allergic-exploration - medical case studies

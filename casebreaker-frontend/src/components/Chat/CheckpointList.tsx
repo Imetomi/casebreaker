@@ -2,6 +2,7 @@
 
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from '@radix-ui/react-icons';
+import { Text } from '@radix-ui/themes';
 import { cn } from '@/lib/utils';
 
 interface Checkpoint {
@@ -70,6 +71,11 @@ export function CheckpointList({
             </div>
           );
         })}
+      </div>
+      <div className="pt-8 border-t border-gray-100">
+        <Text size="2" color="gray">
+          Checklist is tracked automatically, solve the case to complete them.
+        </Text>
       </div>
     </div>
   );

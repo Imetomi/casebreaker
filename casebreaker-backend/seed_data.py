@@ -61,6 +61,86 @@ FIELDS = [
                         "estimated_time": 15,
                     }
                 ],
+            },
+            {
+                "name": "Laboratory Medicine",
+                "description": "Clinical laboratory diagnostics, test interpretation, and pathology",
+                "cases": [
+                    {
+                        "title": "Unexpected High IgE: A Clinical Laboratory Investigation",
+                        "description": "Analysis of an unusual case where extremely high IgE levels led to the discovery of a rare monoclonal gammopathy",
+                        "difficulty": 3,
+                        "specialization": "Clinical Chemistry",
+                        "learning_objectives": [
+                            "Interpret serum protein electrophoresis and immunofixation results",
+                            "Understand the diagnostic approach to monoclonal gammopathies",
+                            "Evaluate laboratory interferents and validation methods",
+                            "Analyze the relationship between clinical presentation and laboratory findings"
+                        ],
+                        "context_materials": {
+                            "background": "Clinical laboratory investigation of monoclonal gammopathies",
+                            "key_concepts": [
+                                "Serum protein electrophoresis",
+                                "Immunoglobulin quantification",
+                                "Monoclonal gammopathy diagnosis",
+                                "Laboratory test validation",
+                                "Flow cytometry in plasma cell disorders"
+                            ],
+                            "required_reading": "ADLM Clinical Case Studies 2025: High IgE Level Case"
+                        },
+                        "checkpoints": [
+                            {
+                                "id": "1",
+                                "title": "Initial Clinical Assessment",
+                                "description": "Analyze the patient's presenting symptoms and initial findings",
+                                "hints": [
+                                    "Consider the significance of hemoptysis in relation to the patient's history",
+                                    "Review the thoracic scan findings and their implications"
+                                ]
+                            },
+                            {
+                                "id": "2",
+                                "title": "Laboratory Data Interpretation",
+                                "description": "Interpret the initial laboratory findings and their clinical significance",
+                                "hints": [
+                                    "Focus on the IgE levels and their reference ranges",
+                                    "Evaluate the complete blood count abnormalities"
+                                ]
+                            },
+                            {
+                                "id": "3",
+                                "title": "Protein Studies Analysis",
+                                "description": "Evaluate the serum protein electrophoresis and immunofixation results",
+                                "hints": [
+                                    "Examine the gamma-globulin fraction abnormalities",
+                                    "Consider the significance of the lambda monoclonal band"
+                                ]
+                            },
+                            {
+                                "id": "4",
+                                "title": "Advanced Diagnostic Testing",
+                                "description": "Analyze bone marrow findings and molecular studies",
+                                "hints": [
+                                    "Review flow cytometry markers in plasma cell disorders",
+                                    "Consider the significance of t(11;14) translocation"
+                                ]
+                            },
+                            {
+                                "id": "5",
+                                "title": "Final Diagnosis",
+                                "description": "Synthesize all findings to reach the final diagnosis",
+                                "hints": [
+                                    "Review criteria for MGUS vs Multiple Myeloma",
+                                    "Consider the significance of follow-up findings"
+                                ]
+                            }
+                        ],
+                        "source_url": "https://myadlm.org/science-and-research/clinical-chemistry/clinical-case-studies/2025/an-unexpectedly-high-ige-level-during-allergic-exploration",
+                        "source_type": "EXTERNAL",
+                        "share_slug": "unexpected-high-ige-case",
+                        "estimated_time": 25
+                    }
+                ]
             }
         ],
     },
@@ -169,6 +249,95 @@ FIELDS = [
                         "estimated_time": 10,
                     },
                 ],
+            }
+        ],
+    },
+    {
+        "name": "Economics & Finance",
+        "description": "Explore financial markets, corporate strategy, and economic decision-making",
+        "icon_url": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=60",
+        "subtopics": [
+            {
+                "name": "Corporate Finance",
+                "description": "Study of financial decisions and strategies in corporate environments",
+                "cases": [
+                    {
+                        "title": "Hertz Global Holdings: Capital Structure Strategy",
+                        "description": "Analysis of Hertz's strategic decisions regarding debt financing, asset-backed securities, and equity issuance in 2019",
+                        "difficulty": 3,
+                        "specialization": "Financial Management",
+                        "learning_objectives": [
+                            "Analyze the use of asset-backed securities in corporate financing",
+                            "Evaluate trade-offs between debt and equity financing",
+                            "Understand special-purpose entities and bankruptcy-remote structures",
+                            "Assess risk management in fleet financing and depreciation",
+                            "Examine market reactions to corporate financing decisions"
+                        ],
+                        "context_materials": {
+                            "background": "Evolution of Hertz's capital structure from 1918 to 2019",
+                            "key_concepts": [
+                                "Asset-Backed Securities (ABS)",
+                                "Special Purpose Entities",
+                                "Program vs Non-Program Vehicles",
+                                "Capital Structure Theory",
+                                "Rights Offerings",
+                                "Market Signal Theory"
+                            ],
+                            "required_reading": "Yale SOM Case Study: Hertz Global Holdings (A)"
+                        },
+                        "checkpoints": [
+                            {
+                                "id": "1",
+                                "title": "Business Model Analysis",
+                                "description": "Evaluate Hertz's core business model and operational scale",
+                                "hints": [
+                                    "Consider the significance of fleet size and location network",
+                                    "Analyze the importance of airport locations in their business model"
+                                ]
+                            },
+                            {
+                                "id": "2",
+                                "title": "ABS Structure Assessment",
+                                "description": "Analyze Hertz's asset-backed securities program and special-purpose entities",
+                                "hints": [
+                                    "Examine the benefits of bankruptcy-remote trusts",
+                                    "Consider how ABS reduces interest costs"
+                                ]
+                            },
+                            {
+                                "id": "3",
+                                "title": "Risk Management Evaluation",
+                                "description": "Assess Hertz's approach to managing fleet depreciation risk",
+                                "hints": [
+                                    "Compare Program vs Non-Program vehicle strategies",
+                                    "Analyze manufacturer repurchase agreements"
+                                ]
+                            },
+                            {
+                                "id": "4",
+                                "title": "Debt Structure Analysis",
+                                "description": "Evaluate Hertz's mix of secured and unsecured debt",
+                                "hints": [
+                                    "Consider the implications of high leverage",
+                                    "Analyze the 2019 debt refinancing decision"
+                                ]
+                            },
+                            {
+                                "id": "5",
+                                "title": "Strategic Recommendations",
+                                "description": "Develop recommendations for Hertz's capital structure",
+                                "hints": [
+                                    "Consider market reactions to equity issuance",
+                                    "Evaluate alternatives to rebalance the capital structure"
+                                ]
+                            }
+                        ],
+                        "source_url": "https://cases.som.yale.edu/hertz-global-holdings-uses-debt-and-equity",
+                        "source_type": "EXTERNAL",
+                        "share_slug": "hertz-capital-structure",
+                        "estimated_time": 30
+                    }
+                ]
             }
         ],
     },

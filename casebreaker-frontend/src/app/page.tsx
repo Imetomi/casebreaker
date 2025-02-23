@@ -42,50 +42,47 @@ export default async function Home() {
       <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-cyan-50/20" style={{ zIndex: 0 }} />
       <Container className="relative" style={{ zIndex: 1 }}>
         <div className="text-center">
-          <Text size="4" as="p" color="gray" weight="medium" className="mb-4">Popular case studies at your university</Text>
+          <Text size="4" as="p" color="gray" weight="medium" className="mb-4">Popular case studies in university courses</Text>
           <div className="flex flex-wrap justify-center gap-3 mb-4">
             <Button variant="surface" size="3">
-              🇺🇸 Roe v. Wade
+              🧬 Human Genome Project
             </Button>
             <Button variant="surface" size="3">
-              🇬🇧 Donoghue v. Stevenson
+              🔬 Stanford Prison Experiment
             </Button>
             <Button variant="surface" size="3">
-              🇩🇪 Nuremberg Trials
+              💊 Thalidomide Crisis
             </Button>
             <Button variant="surface" size="3">
-              🇺🇸 Brown v. Board
-            </Button>
-            <Button variant="surface" size="3">
-              🇨🇦 Legroulx v. Pitre
+              🧪 Manhattan Project Ethics
             </Button>
           </div>
           <div className="flex flex-wrap justify-center gap-3 mb-4">
             <Button variant="surface" size="3">
-              🇺🇸 2008 Financial Crisis
+              💼 Enron Accounting Scandal
             </Button>
             <Button variant="surface" size="3">
-              🇫🇮 UBI Trials
+              📱 Apple vs. Samsung Patent
             </Button>
             <Button variant="surface" size="3">
-              🇬🇧 Brexit Impact
+              🏦 Lehman Brothers Collapse
             </Button>
             <Button variant="surface" size="3">
-              🇺🇸 Gig Economy
+              🤖 Cambridge Analytica
             </Button>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
             <Button variant="surface" size="3">
-              🇺🇸 Affordable Care Act
+              🌍 Climate Change Models
             </Button>
             <Button variant="surface" size="3">
-              🇦🇺 Mental Health Reform
+              🧮 Nash Equilibrium Apps
             </Button>
             <Button variant="surface" size="3">
-              🇺🇸 Vaccination Laws
+              🧫 CRISPR Ethics Cases
             </Button>
             <Button variant="surface" size="3">
-              🇦🇪 Dubai Healthcare City
+              🔋 Tesla Battery Innovation
             </Button>
           </div>
         </div>
@@ -121,6 +118,45 @@ export default async function Home() {
               Find more fields
             </Link>
           </Button>
+        </div>
+      </Container>
+    </div>
+
+
+    {/* Available Exams Section per counrty */}
+    <div className="relative py-16">
+      <Container className="relative" style={{ zIndex: 1 }}>
+        <div className="text-center">
+          {/* International cases section */}
+          <Text size="4" as="p" color="gray" weight="medium" className="mb-4">Notable cases from your counrty</Text>
+          <div className="flex flex-wrap justify-center gap-3 mb-4">
+            <Button variant="surface" size="3">
+              🇺🇸 Harvard Business School Cases
+            </Button>
+            <Button variant="surface" size="3">
+              🇬🇧 Oxford Medical Ethics
+            </Button>
+            <Button variant="surface" size="3">
+              🇩🇪 Max Planck Research Cases
+            </Button>
+            <Button variant="surface" size="3">
+              🇯🇵 Toyota Production System
+            </Button>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button variant="surface" size="3">
+              🇨🇭 CERN Physics Studies
+            </Button>
+            <Button variant="surface" size="3">
+              🇸🇪 Karolinska Medical Research
+            </Button>
+            <Button variant="surface" size="3">
+              🇳🇱 Rotterdam School of Management
+            </Button>
+            <Button variant="surface" size="3">
+              🇸🇬 NUS Technology Innovation
+            </Button>
+          </div>
         </div>
       </Container>
     </div>
@@ -302,7 +338,7 @@ export default async function Home() {
         </Grid>
         <div className="mt-12 pt-8 border-t border-gray-200">
           <Text as="p" size="1" color="gray" className="text-center mt-1">
-            © {new Date().getFullYear()} CaseBreaker. All rights reserved.
+            &copy; {new Date().getFullYear()} CaseBreaker. All rights reserved.
           </Text>
         </div>
       </Container>
