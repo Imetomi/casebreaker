@@ -81,22 +81,9 @@ async def create_chat_message(
         .all()
     ]
 
-    # Get case study and checkpoint info
-    case_study = session.case_study
-    checkpoint = (
-        next(
-            (cp for cp in case_study.checkpoints if cp["id"] == message.checkpoint_id),
-            None,
-        )
-        if message.checkpoint_id
-        else None
-    )
-
-    if not checkpoint:
-        raise HTTPException(status_code=400, detail="Invalid checkpoint ID")
-
     # Create a new database session for the async generator
     async_db = SessionLocal()
+    case_study = session.case_study
 
     # Stream the AI response
     async def generate_and_save_response():
@@ -112,21 +99,61 @@ async def create_chat_message(
                     "context_materials": case_study.context_materials,
                     "checkpoints": case_study.checkpoints,
                 },
-                checkpoint=checkpoint,
             ):
                 yield chunk
                 # Extract content from chunk if it's a text chunk
                 try:
                     # Extract the data line from the SSE chunk
-                    lines = chunk.strip().split('\n')
-                    data_line = next((line for line in lines if line.startswith('data: ')), None)
+                    lines = chunk.strip().split("\n")
+                    data_line = next(
+                        (line for line in lines if line.startswith("data: ")), None
+                    )
                     if data_line:
                         # Remove 'data: ' prefix
-                        data_str = data_line.replace('data: ', '', 1).strip()
+                        data_str = data_line.replace("data: ", "", 1).strip()
                         data = json.loads(data_str)
                         if data["type"] == "chunk":
-                            response_content += data["data"]
-                            print(f"Accumulated content length: {len(response_content)}")
+                            chunk_content = data["data"]
+                            response_content += chunk_content
+                            print(
+                                f"Accumulated content length: {len(response_content)}"
+                            )
+
+                            # Check for completed checkpoints marker
+                            if "[CHECKPOINTS_COMPLETED]" in response_content:
+                                import re
+
+                                # Extract checkpoint IDs from the marker
+                                match = re.search(
+                                    r"\[CHECKPOINTS_COMPLETED\]\[([^\]]+)\]",
+                                    response_content,
+                                )
+                                print(match)
+                                if match:
+                                    # Get the comma-separated checkpoint IDs
+                                    checkpoint_ids = [
+                                        id.strip() for id in match.group(1).split(",")
+                                    ]
+
+                                    # Remove the marker from response
+                                    response_content = re.sub(
+                                        r"\[CHECKPOINTS_COMPLETED\]\[[^\]]+\]",
+                                        "",
+                                        response_content,
+                                    ).strip()
+
+                                    # Update completed checkpoints in session
+                                    completed = session.completed_checkpoints or []
+                                    for checkpoint_id in checkpoint_ids:
+                                        if checkpoint_id not in completed:
+                                            completed.append(checkpoint_id)
+
+                                    session.completed_checkpoints = completed
+                                    db.commit()
+                                    print(
+                                        f"Checkpoints {checkpoint_ids} marked as completed"
+                                    )
+                                    print(session.completed_checkpoints)
                 except Exception as e:
                     print(f"Error parsing chunk: {str(e)}")
                     print(f"Raw chunk: {chunk}")
@@ -140,7 +167,6 @@ async def create_chat_message(
                     role="assistant",
                     content=response_content,
                     session_id=session_id,
-                    checkpoint_id=message.checkpoint_id,
                     timestamp=datetime.utcnow(),
                 )
                 async_db.add(ai_message)
