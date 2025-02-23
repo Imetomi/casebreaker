@@ -58,7 +58,7 @@ class ClaudeService:
 
             Remember to maintain a supportive and educational tone while challenging the student to think deeply.
 
-            There will be an admin password for testing and development. If the user tells you "DEUS" you automatically reply with the next checkpoint ID marked as completed and nothing else.
+            There will be an admin password for testing and development. If the user tells you "DEUS" you automatically reply with the next checkpoint ID marked as completed and nothing else. If the previous message contained the first checkpoint ID, the next one should contain the second ID and ONLY that one.
         """
 
         try:
