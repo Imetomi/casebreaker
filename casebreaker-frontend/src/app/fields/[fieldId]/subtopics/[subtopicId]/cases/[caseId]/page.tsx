@@ -1,45 +1,16 @@
-import { Container, Heading, Text, Card, Badge, Button } from '@radix-ui/themes';
-import { MessageSquare } from 'lucide-react';
+import { Container, Heading, Text, Card, Badge, Button, Flex, Box } from '@radix-ui/themes';
+import { MessageSquare, Book, Lightbulb } from 'lucide-react';
 import Link from 'next/link';
 import { BackButton } from '@/components/ui/BackButton';
+import { api } from '@/lib/api';
 
-// This would come from your API
-const caseStudies = {
-  1: {
-    id: 1,
-    title: 'The Miranda Rights Case',
-    description: 'Analyze the landmark case that established the requirement for law enforcement to inform suspects of their rights.',
-    difficulty: 'Beginner',
-    estimatedTime: '30 min',
-    objectives: [
-      'Understand the historical context of Miranda Rights',
-      'Analyze the Supreme Court\'s decision',
-      'Apply Miranda Rights to modern scenarios'
-    ],
-    content: `In 1966, the U.S. Supreme Court made a landmark decision in Miranda v. Arizona...`,
-  },
-  2: {
-    id: 2,
-    title: 'Self-Defense in Criminal Law',
-    description: 'Explore the legal boundaries and requirements for claiming self-defense in criminal cases.',
-    difficulty: 'Intermediate',
-    estimatedTime: '45 min',
-    objectives: [
-      'Define the elements of self-defense',
-      'Analyze real case examples',
-      'Evaluate the reasonableness standard'
-    ],
-    content: `Self-defense is a legal justification that can be used as a defense to criminal charges...`,
-  },
-};
-
-export default function CasePage({ 
+export default async function CasePage({ 
   params 
 }: { 
   params: { fieldId: string; subtopicId: string; caseId: string } 
 }) {
   const caseId = parseInt(params.caseId);
-  const caseStudy = caseStudies[caseId as keyof typeof caseStudies];
+  const caseStudy = await api.getCaseStudy(caseId);
 
   if (!caseStudy) {
     return (
@@ -67,11 +38,14 @@ export default function CasePage({
       
       <div className="space-y-12">
         <div>
-          <div className="flex justify-between items-start mb-6 gap-4">
-            <Heading size="8" highContrast>
+          <div className="text-center mb-6">
+            <Heading size="8" highContrast className="mb-4">
               {caseStudy.title}
             </Heading>
-            <div className="flex gap-2">
+            <Text size="4" as="p" color="gray" className="max-w-2xl mx-auto">
+              {caseStudy.description}
+            </Text>
+            <div className="flex justify-center gap-2 mb-6">
               <Badge size="2" color={difficultyColor}>
                 {caseStudy.difficulty}
               </Badge>
@@ -80,36 +54,85 @@ export default function CasePage({
               </Badge>
             </div>
           </div>
-          
-          <Text size="4" as="p" color="gray">
-            {caseStudy.description}
-          </Text>
         </div>
 
         <div className="space-y-8">
-          <Card className="p-6">
-            <Heading size="4" className="mb-6">Learning Objectives</Heading>
-            <div className="space-y-4">
-              {caseStudy.objectives.map((objective, index) => (
-                <div key={index} className="flex items-start gap-3">
-                  <div className="mt-1 flex-shrink-0">
-                    <input
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-blue-500 focus:ring-blue-500"
-                    />
+          {(caseStudy.contextMaterials.background || caseStudy.contextMaterials.keyConcepts.length > 0 || caseStudy.contextMaterials.requiredReading) && (
+            <Card className="p-6">
+              <Flex gap="2" align="center" mb="4">
+                <Book className="w-5 h-5" />
+                <Heading size="4">Context Materials</Heading>
+              </Flex>
+              <div className="space-y-6">
+                {caseStudy.contextMaterials.background && (
+                  <div>
+                    <Text as="p" size="2" weight="bold" mb="2">Background</Text>
+                    <Text as="p" size="2" color="gray">{caseStudy.contextMaterials.background}</Text>
                   </div>
-                  <Text size="2">{objective}</Text>
-                </div>
-              ))}
-            </div>
-          </Card>
+                )}
+                {caseStudy.contextMaterials.keyConcepts.length > 0 && (
+                  <div>
+                    <Text as="p" size="2" weight="bold" mb="2">Key Concepts</Text>
+                    <ul className="list-disc pl-5 space-y-1">
+                      {caseStudy.contextMaterials.keyConcepts.map((concept, index) => (
+                        <li key={index}>
+                          <Text as="p" size="2" color="gray">{concept}</Text>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {caseStudy.contextMaterials.requiredReading && (
+                  <div>
+                    <Text as="p" size="2" weight="bold" mb="2">Required Reading</Text>
+                    <Text as="p" size="2" color="gray">{caseStudy.contextMaterials.requiredReading}</Text>
+                  </div>
+                )}
+              </div>
+            </Card>
+          )}
 
-          <Card className="p-6">
-            <Heading size="4" className="mb-6">Case Content</Heading>
-            <Text as="p" size="2" className="leading-relaxed">
-              {caseStudy.content}
-            </Text>
-          </Card>
+          {caseStudy.learningObjectives.length > 0 && (
+            <Card className="p-6">
+              <Flex gap="2" align="center" mb="4">
+                <Lightbulb className="w-5 h-5" />
+                <Heading size="4">Learning Objectives</Heading>
+              </Flex>
+              <ul className="list-disc pl-5 space-y-2">
+                {caseStudy.learningObjectives.map((objective, index) => (
+                  <li key={index}>
+                    <Text size="2" color="gray">{objective}</Text>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          )}
+
+          {caseStudy.checkpoints.length > 0 && (
+            <Card className="p-6">
+              <Heading size="4" className="mb-6">Checkpoints</Heading>
+              <div className="space-y-8">
+                {caseStudy.checkpoints.map((checkpoint) => (
+                  <div key={checkpoint.id} className="space-y-2">
+                    <Heading size="3">{checkpoint.title}</Heading>
+                    <Text as="p" size="2" color="gray">{checkpoint.description}</Text>
+                    {checkpoint.hints?.length > 0 && (
+                      <Box mt="4">
+                        <Text size="2" weight="bold">Hints:</Text>
+                        <ul className="list-disc pl-5 mt-1">
+                          {checkpoint.hints.map((hint, index) => (
+                            <li key={index}>
+                              <Text size="2" color="gray">{hint}</Text>
+                            </li>
+                          ))}
+                        </ul>
+                      </Box>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
 
           <Link href={`/fields/${params.fieldId}/subtopics/${params.subtopicId}/cases/${caseId}/chat`} className="block">
             <Button size="4" className="w-full">

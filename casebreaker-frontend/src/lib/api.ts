@@ -4,14 +4,77 @@ const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second
 
-export interface CaseStudy {
+// API response types
+interface ApiCaseStudy {
   id: number;
   title: string;
   description: string;
+  difficulty: number;
+  estimated_time: number;
+}
+
+// Mapped types for frontend
+export interface CaseStudyListItem {
+  id: number;
+  title: string;
+  description: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  estimatedTime: string;
+}
+
+// Utility functions for data transformation
+const mapDifficulty = (level: number): 'Beginner' | 'Intermediate' | 'Advanced' => {
+  const mapping = {
+    1: 'Beginner',
+    2: 'Intermediate',
+    3: 'Advanced'
+  } as const;
+  return mapping[level as keyof typeof mapping] || 'Intermediate';
+};
+
+const formatEstimatedTime = (minutes: number): string => {
+  return `${minutes} min`;
+};
+
+interface ApiCheckpoint {
+  id: string;
+  title: string;
+  description: string;
+  hints: string[];
+}
+
+interface ApiContextMaterials {
+  background: string;
+  key_concepts: string[];
+  required_reading: string;
+}
+
+interface ApiCaseStudyDetail extends ApiCaseStudy {
+  specialization: string;
+  learning_objectives: string[];
+  context_materials: ApiContextMaterials;
+  checkpoints: ApiCheckpoint[];
+  source_url: string;
+  source_type: string;
+  share_slug: string;
+  last_updated: string;
+  created_at: string;
+  subtopic: Subtopic;
+}
+
+export interface CaseStudy extends CaseStudyListItem {
+  specialization: string;
+  learningObjectives: string[];
+  contextMaterials: {
+    background: string;
+    keyConcepts: string[];
+    requiredReading: string;
+  };
   checkpoints: Array<{
     id: string;
     title: string;
-    content: string;
+    description: string;
+    hints: string[];
   }>;
 }
 
@@ -148,12 +211,32 @@ export class ApiClient {
       {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'accept': 'application/json',
         },
       }
     );
 
-    return response.json();
+    if (!response.ok) {
+      throw new Error('Failed to fetch case study');
+    }
+
+    const apiCase = await response.json() as ApiCaseStudyDetail;
+    
+    return {
+      id: apiCase.id,
+      title: apiCase.title,
+      description: apiCase.description,
+      difficulty: mapDifficulty(apiCase.difficulty),
+      estimatedTime: formatEstimatedTime(apiCase.estimated_time),
+      specialization: apiCase.specialization || '',
+      learningObjectives: apiCase.learning_objectives || [],
+      contextMaterials: {
+        background: apiCase.context_materials?.background || '',
+        keyConcepts: apiCase.context_materials?.key_concepts || [],
+        requiredReading: apiCase.context_materials?.required_reading || '',
+      },
+      checkpoints: apiCase.checkpoints || [],
+    };
   }
 
   async getField(fieldId: number): Promise<Field> {
@@ -178,6 +261,29 @@ export class ApiClient {
     }
     
     return response.json();
+  }
+
+  async getCaseStudiesBySubtopic(subtopicId: number): Promise<CaseStudyListItem[]> {
+    const response = await this.fetchWithRetry(`${API_BASE_URL}/case-studies/?subtopic_id=${subtopicId}`, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch case studies');
+    }
+
+    const apiCases = await response.json() as ApiCaseStudy[];
+    
+    return apiCases.map(apiCase => ({
+      id: apiCase.id,
+      title: apiCase.title,
+      description: apiCase.description,
+      difficulty: mapDifficulty(apiCase.difficulty),
+      estimatedTime: formatEstimatedTime(apiCase.estimated_time)
+    }));
   }
 }
 

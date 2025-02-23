@@ -13,12 +13,14 @@ export default async function FieldPage({ params }: { params: { fieldId: string 
     <Container size="4" className="py-12">
       <div className="mb-8">
         <BackButton href="/" />
-        <Heading size="8" className="mb-2" highContrast>
-          {field.name}
-        </Heading>
-        <Text size="4" as="p" color="gray" className="mb-8">
-          {field.description}
-        </Text>
+        <div className="text-center">
+          <Heading size="8" className="mb-2" highContrast>
+            {field.name}
+          </Heading>
+          <Text size="4" as="p" color="gray" className="mb-8 max-w-2xl mx-auto">
+            {field.description}
+          </Text>
+        </div>
       </div>
 
       <Grid columns={{ initial: '1', sm: '2', md: '3' }} gap="6">
