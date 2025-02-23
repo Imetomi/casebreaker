@@ -25,8 +25,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
         <Theme
-          accentColor="blue"
-          grayColor="slate"
+          accentColor="cyan"
+          grayColor="mauve"
           radius="large"
           scaling="100%"
         >

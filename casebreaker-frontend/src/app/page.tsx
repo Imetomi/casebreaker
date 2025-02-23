@@ -16,13 +16,13 @@ export default async function Home() {
     <>
     <div className="relative">
       {/* Main gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-100 via-blue-50/50 to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-100 via-cyan-50/50 to-white" />
       <Container size="4" className="relative pt-32 pb-24">
         <div className="text-center max-w-2xl mx-auto">
-          <Heading size="9" className="mb-8">
+          <Heading size="9" className="mb-8" >
             Get ready for your exam with{" "}
-            <Text className="font-bold inline-block" color="blue">real-world</Text>
-            {" "}case studies 📚
+            <Text className="font-bold inline-block" color="cyan">real-world</Text>
+            {" "}case studies
           </Heading>
             <Text size="4" as="p" color="gray" weight="medium" className="mb-12 leading-relaxed">
               Dive into interactive case studies and gain practical knowledge in your field
@@ -39,7 +39,7 @@ export default async function Home() {
 
     {/* Available Exams Section */}
     <div className="relative py-16">
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-blue-50/20" style={{ zIndex: 0 }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-cyan-50/20" style={{ zIndex: 0 }} />
       <Container className="relative" style={{ zIndex: 1 }}>
         <div className="text-center">
           <Text size="4" as="p" color="gray" weight="medium" className="mb-4">Popular case studies at your university</Text>
@@ -94,7 +94,7 @@ export default async function Home() {
 
     {/* Recommended Fields Section */}
     <div className="relative py-24">
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/20 to-blue-100" style={{ zIndex: 0 }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-50/20 to-cyan-100" style={{ zIndex: 0 }} />
       <Container size="3" className="relative" style={{ zIndex: 1 }}>
         <div className="text-center mb-20">
           <Heading size="8" className="mb-4" highContrast>
@@ -173,9 +173,9 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/50 to-purple-100/30 rounded-2xl" />
+            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-100/50 to-purple-100/30 rounded-2xl" />
             <div className="relative p-8">
-              <Text as="p" size="8" weight="bold" className="mb-6 text-blue-900">
+              <Text as="p" size="8" weight="bold" className="mb-6 text-cyan-900">
                 83%
               </Text>
               <Text as="p" size="3" className="mb-2">
@@ -191,13 +191,13 @@ export default async function Home() {
     </div>
 
     {/* AI-Powered Learning Section */}
-    <div className="relative py-16 bg-gradient-to-b from-white to-blue-50/30">
+    <div className="relative py-16 bg-gradient-to-b from-white to-cyan-50/30">
       <Container>
         <Grid columns="2" gap="9" className="items-center">
-          <div className="relative order-2">
-            <div className="absolute inset-0 bg-gradient-to-bl from-purple-100/30 to-blue-100/50 rounded-2xl" />
+          <div className="relative order-1">
+            <div className="absolute inset-0 bg-gradient-to-bl from-cyan-50/40 to-white rounded-2xl" />
             <div className="relative p-8">
-              <Text as="p" size="8" weight="bold" className="mb-6 text-blue-900">
+              <Text as="p" size="8" weight="bold" className="mb-6 text-cyan-900">
                 2.5x
               </Text>
               <Text as="p" size="3" className="mb-2">
@@ -208,7 +208,7 @@ export default async function Home() {
               </Text>
             </div>
           </div>
-          <div className="order-1">
+          <div className="order-2">
             <Heading size="6" className="mb-4" highContrast>
               AI-Powered Learning Assistant
             </Heading>
@@ -301,7 +301,7 @@ export default async function Home() {
           </div>
         </Grid>
         <div className="mt-12 pt-8 border-t border-gray-200">
-          <Text as="p" size="1" color="gray" className="text-center mt-2">
+          <Text as="p" size="1" color="gray" className="text-center mt-1">
             © {new Date().getFullYear()} CaseBreaker. All rights reserved.
           </Text>
         </div>

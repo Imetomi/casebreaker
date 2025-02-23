@@ -9,7 +9,7 @@ export function Navbar() {
           <NextLink href="/" passHref legacyBehavior>
             <Link>
               <Heading size="5">
-                <Text color="ruby" highContrast as="span">Case</Text><Text color="blue" as="span">Breaker</Text>
+                <Text color="mauve" highContrast as="span">Case</Text><Text color="cyan" as="span">Breaker</Text>
               </Heading>
             </Link>
           </NextLink>
