@@ -4,11 +4,11 @@ import { ChatMessage } from '@/lib/api';
 
 export interface UseChatOptions {
   sessionId: number;
-  checkpointId: string;
   initialMessage?: string;
+  onResponseComplete?: () => void;
 }
 
-export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOptions) {
+export function useChat({ sessionId, initialMessage, onResponseComplete }: UseChatOptions) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -21,8 +21,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
         if (existingMessages.length === 0 && initialMessage) {
           setMessages([{
             role: 'assistant',
-            content: initialMessage,
-            checkpoint_id: checkpointId
+            content: initialMessage
           }]);
         } else {
           setMessages(existingMessages);
@@ -33,7 +32,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
       }
     }
     loadMessages();
-  }, [sessionId, initialMessage, checkpointId]);
+  }, [sessionId, initialMessage]);
 
   const sendMessage = useCallback(async (content: string) => {
     try {
@@ -42,8 +41,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
       // Add user message immediately
       const userMessage: ChatMessage = {
         role: 'user',
-        content,
-        checkpoint_id: checkpointId
+        content
       };
       setMessages(prev => [...prev, userMessage]);
       
@@ -51,7 +49,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
       setIsLoading(true);
 
       // Send message and handle streaming response
-      const stream = await api.sendMessage(sessionId, content, checkpointId);
+      const stream = await api.sendMessage(sessionId, content);
       if (!stream) {
         throw new Error('No response stream received');
       }
@@ -95,8 +93,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
                         // No user message found, just append assistant message
                         return [...prev, {
                           role: 'assistant',
-                          content: assistantMessage,
-                          checkpoint_id: checkpointId
+                          content: assistantMessage
                         }];
                       }
                       
@@ -117,8 +114,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
                           ...prev.slice(0, lastUserMessageIndex + 1),
                           {
                             role: 'assistant',
-                            content: assistantMessage,
-                            checkpoint_id: checkpointId
+                            content: assistantMessage
                           },
                           ...prev.slice(lastUserMessageIndex + 1)
                         ];
@@ -138,6 +134,8 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
           }
         }
       } finally {
+        // Call onResponseComplete before releasing the lock
+        onResponseComplete?.();
         reader.releaseLock();
         setIsLoading(false);
       }
@@ -148,7 +146,7 @@ export function useChat({ sessionId, checkpointId, initialMessage }: UseChatOpti
     } finally {
       setIsLoading(false);
     }
-  }, [sessionId, checkpointId]);
+  }, [sessionId]);
 
   return {
     messages,

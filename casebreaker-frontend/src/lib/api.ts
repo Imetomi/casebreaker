@@ -93,6 +93,7 @@ export interface Session {
   case_study_id: number;
   device_id: string;
   created_at: string;
+  completed_checkpoints: string[];
 }
 
 export interface Field {
@@ -155,8 +156,7 @@ export class ApiClient {
 
   async sendMessage(
     sessionId: number,
-    content: string,
-    checkpointId: string
+    content: string
   ): Promise<ReadableStream<Uint8Array> | null> {
     const response = await this.fetchWithRetry(
       `${API_BASE_URL}/sessions/${sessionId}/messages`,
@@ -167,8 +167,7 @@ export class ApiClient {
         },
         body: JSON.stringify({
           role: 'user',
-          content,
-          checkpoint_id: checkpointId,
+          content
         }),
       }
     );

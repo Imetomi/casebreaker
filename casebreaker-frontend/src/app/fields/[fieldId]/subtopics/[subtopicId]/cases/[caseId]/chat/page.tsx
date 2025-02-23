@@ -91,7 +91,6 @@ Feel free to ask any questions!`;
 
       <Chat 
         sessionId={sessionId}
-        checkpointId="1"
         initialMessage={initialMessage}
       />
     </Container>

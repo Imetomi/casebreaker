@@ -148,12 +148,13 @@ async def create_chat_message(
                                         if checkpoint_id not in completed:
                                             completed.append(checkpoint_id)
 
-                                    session.completed_checkpoints = completed
-                                    db.commit()
-                                    print(
-                                        f"Checkpoints {checkpoint_ids} marked as completed"
-                                    )
-                                    print(session.completed_checkpoints)
+                                    # Update the session in async_db
+                                    async_session = async_db.query(SessionModel).filter(SessionModel.id == session_id).first()
+                                    if async_session:
+                                        async_session.completed_checkpoints = completed
+                                        async_db.commit()
+                                        print(f"Checkpoints {checkpoint_ids} marked as completed")
+                                        print(f"Updated checkpoints: {async_session.completed_checkpoints}")
                 except Exception as e:
                     print(f"Error parsing chunk: {str(e)}")
                     print(f"Raw chunk: {chunk}")
