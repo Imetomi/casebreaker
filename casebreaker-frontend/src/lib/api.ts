@@ -190,6 +190,24 @@ export class ApiClient {
     return response.json();
   }
 
+  async getSession(sessionId: number): Promise<Session> {
+    const response = await this.fetchWithRetry(
+      `${API_BASE_URL}/sessions/${sessionId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error('Failed to get session');
+    }
+
+    return response.json();
+  }
+
   async completeCheckpoint(
     sessionId: number,
     checkpointId: string
