@@ -7,6 +7,9 @@ import { useChat } from '@/hooks/useChat';
 import { api } from '@/lib/api';
 import type { CaseStudy } from '@/lib/api';
 import { CheckpointList } from './CheckpointList';
+import { ContextView } from './ContextView';
+import { Button, Flex } from '@radix-ui/themes';
+import { MessageSquare, BookOpen } from 'lucide-react';
 
 interface ChatProps {
   sessionId: number;
@@ -14,6 +17,7 @@ interface ChatProps {
 }
 
 export function Chat({ sessionId, initialMessage }: ChatProps) {
+  const [view, setView] = useState<'chat' | 'context'>('chat');
   const [caseStudy, setCaseStudy] = useState<CaseStudy | null>(null);
   const [completedCheckpoints, setCompletedCheckpoints] = useState<string[]>([]);
 
@@ -50,6 +54,7 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
         const [study] = await Promise.all([
           api.getCaseStudy(session.case_study_id),
         ]);
+        console.log('Fetched case study:', study);
         setCaseStudy(study);
         setCompletedCheckpoints(session.completed_checkpoints || []);
       } catch (error) {
@@ -61,19 +66,39 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
 
   return (
     <div className="flex gap-4">
-      {caseStudy?.checkpoints && (
-        <CheckpointList
-          checkpoints={caseStudy.checkpoints}
-          completedCheckpoints={completedCheckpoints}
-        />
-      )}
+      <div>
+        <Flex gap="2" mb="4" justify="center">
+          <Button
+            variant={view === 'chat' ? 'solid' : 'surface'}
+            onClick={() => setView('chat')}
+          >
+            <MessageSquare className="w-4 h-4" />
+            Chat
+          </Button>
+          <Button
+            variant={view === 'context' ? 'solid' : 'surface'}
+            onClick={() => setView('context')}
+          >
+            <BookOpen className="w-4 h-4" />
+            Context
+          </Button>
+        </Flex>
 
-      {/* Chat Box */}
-      <div 
-        className="flex-1 flex flex-col h-[calc(100vh-14rem)] max-h-[700px] bg-white rounded-lg border shadow-sm"
-        role="main"
-        aria-label="Chat Interface"  
-      >
+        {caseStudy?.checkpoints && (
+          <CheckpointList
+            checkpoints={caseStudy.checkpoints}
+            completedCheckpoints={completedCheckpoints}
+          />
+        )}
+      </div>
+
+      <div className="flex-1">
+        {view === 'chat' ? (
+          <div 
+            className="flex flex-col h-[calc(100vh-14rem)] max-h-[700px] bg-white rounded-lg border shadow-sm overflow-hidden"
+            role="main"
+            aria-label="Chat Interface"  
+          >
         <div className="flex-1 overflow-y-auto p-4" ref={chatContainerRef}>
           <div className="space-y-6">
             {error && (
@@ -92,9 +117,16 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
           </div>
         </div>
         
-        <div className="border-t p-4 bg-white">
-          <Input onSend={sendMessage} disabled={isLoading} />
-        </div>
+            <div className="border-t p-4 bg-white">
+              <Input onSend={sendMessage} disabled={isLoading} />
+            </div>
+          </div>
+        ) : (
+          <>
+            {!caseStudy && <div className="text-center p-4">Loading case study...</div>}
+            {caseStudy && <ContextView caseStudy={caseStudy} />}
+          </>
+        )}
       </div>
     </div>
   );
