@@ -4,6 +4,7 @@ import "./globals.css";
 import { Theme } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import { Toaster } from 'sonner';
+import { NavbarWrapper } from '@/components/ui/NavbarWrapper';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,13 +27,16 @@ export default function RootLayout({
         <Theme
           accentColor="blue"
           grayColor="slate"
-          radius="medium"
+          radius="large"
           scaling="100%"
         >
-          <main className="min-h-screen bg-slate-50">
+          <div className="min-h-screen bg-slate-50">
             <Toaster position="top-right" />
-            {children}
-          </main>
+            <NavbarWrapper />
+            <main>
+              {children}
+            </main>
+          </div>
         </Theme>
       </body>
     </html>
