@@ -13,13 +13,21 @@ export function Navbar() {
               </Heading>
             </Link>
           </NextLink>
-          <Flex gap="4" align="center">
-            <NextLink href="/fields" passHref legacyBehavior>
-              <Link>Fields</Link>
-            </NextLink>
-            <NextLink href="/about" passHref legacyBehavior>
-              <Link>About</Link>
-            </NextLink>
+          <Flex gap="6" align="center">
+            <Flex gap="4" align="center">
+              <NextLink href="/about" passHref legacyBehavior>
+                <Link>About</Link>
+              </NextLink>
+              <NextLink href="/fields" passHref legacyBehavior>
+                <Link>Fields</Link>
+              </NextLink>
+              <NextLink href="/custom-case" passHref legacyBehavior>
+                <Link>Custom Case</Link>
+              </NextLink>
+              <NextLink href="/pricing" passHref legacyBehavior>
+                <Link>Pricing</Link>
+              </NextLink>
+            </Flex>
             <Button variant="solid">Get started</Button>
           </Flex>
         </Flex>
