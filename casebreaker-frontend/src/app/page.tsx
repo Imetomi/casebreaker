@@ -31,7 +31,7 @@ export default async function Home() {
             </Text>
             <Button size="4" variant="solid" asChild>
               <Link href="/fields" className="no-underline">
-                Find your field
+                Find your course
               </Link>
             </Button>
         </div>
