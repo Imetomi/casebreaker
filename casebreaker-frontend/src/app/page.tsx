@@ -1,5 +1,6 @@
 import { Container, Heading, Text, Grid, Button, Link } from '@radix-ui/themes';
 import { FieldCard } from '@/components/fields/FieldCard';
+import { AnimatedHeading } from '@/components/ui/AnimatedHeading';
 
 async function getFields() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/fields/`, {
@@ -20,9 +21,9 @@ export default async function Home() {
       <Container size="4" className="relative pt-32 pb-24">
         <div className="text-center max-w-2xl mx-auto">
           <Heading size="9" className="mb-8" >
-            Get ready for your exams by solving{" "}
-            <Text className="font-bold inline-block" color="cyan">real-world</Text>
-            {" "}case study problems
+            Learn{" "}
+            <AnimatedHeading />
+            {" "}with <br/>real-world case studies
           </Heading>
             <Text size="4" as="p" color="gray" weight="medium" className="mb-12 leading-relaxed">
               Dive into interactive case studies and gain practical knowledge in your field
