@@ -27,28 +27,45 @@ FIELDS = [
                             "Analyze Netflix's social media engagement strategies",
                             "Evaluate the effectiveness of multi-platform content distribution",
                             "Understand the role of data analytics in content personalization",
-                            "Assess the impact of brand voice in social media success"
+                            "Assess the impact of brand voice in social media success",
                         ],
                         "context_materials": {
                             "cards": [
                                 {
                                     "title": "Netflix's Social Media Presence",
-                                    "description": "Netflix maintains distinct brand voices across platforms: witty on Twitter, visual on Instagram, and engaging on TikTok. Their social media team creates platform-specific content that resonates with each audience."
+                                    "description": "Netflix maintains distinct brand voices across platforms: witty on Twitter, visual on Instagram, and engaging on TikTok. Their social media team creates platform-specific content that resonates with each audience.",
                                 },
                                 {
                                     "title": "Content Distribution Strategy",
-                                    "description": "Netflix employs a multi-platform approach, creating behind-the-scenes content, memes, and show clips. They use data analytics to determine optimal posting times and content types for each platform."
+                                    "description": "Netflix employs a multi-platform approach, creating behind-the-scenes content, memes, and show clips. They use data analytics to determine optimal posting times and content types for each platform.",
                                 },
                                 {
                                     "title": "Engagement Metrics",
-                                    "description": "Key performance indicators include engagement rates, follower growth, and content virality. Netflix's social media accounts consistently outperform industry averages in these metrics."
+                                    "description": "Key performance indicators include engagement rates, follower growth, and content virality. Netflix's social media accounts consistently outperform industry averages in these metrics.",
                                 },
                                 {
                                     "title": "Brand Voice Guidelines",
-                                    "description": "Netflix's brand voice is characterized by humor, pop culture references, and authentic fan engagement. Their social media team follows strict guidelines while maintaining a casual, relatable tone."
-                                }
+                                    "description": "Netflix's brand voice is characterized by humor, pop culture references, and authentic fan engagement. Their social media team follows strict guidelines while maintaining a casual, relatable tone.",
+                                },
                             ]
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Over-reliance on Automation",
+                                "description": "Focusing too much on automated posting without maintaining authentic engagement",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Inconsistent Brand Voice",
+                                "description": "Failing to maintain a consistent tone and messaging across different platforms",
+                            },
+                            {
+                                "id": "p3",
+                                "title": "Ignoring Platform Specifics",
+                                "description": "Using the same content approach across all platforms without considering platform-specific best practices",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -57,8 +74,8 @@ FIELDS = [
                                 "hints": [
                                     "Compare content styles across platforms",
                                     "Look for platform-specific engagement strategies",
-                                    "Note differences in posting frequency and timing"
-                                ]
+                                    "Note differences in posting frequency and timing",
+                                ],
                             },
                             {
                                 "id": "2",
@@ -67,8 +84,8 @@ FIELDS = [
                                 "hints": [
                                     "Identify different content categories",
                                     "Consider how content ties to streaming releases",
-                                    "Evaluate engagement metrics for different content types"
-                                ]
+                                    "Evaluate engagement metrics for different content types",
+                                ],
                             },
                             {
                                 "id": "3",
@@ -77,8 +94,8 @@ FIELDS = [
                                 "hints": [
                                     "Look at how Netflix uses engagement metrics",
                                     "Consider the role of A/B testing",
-                                    "Examine content performance patterns"
-                                ]
+                                    "Examine content performance patterns",
+                                ],
                             },
                             {
                                 "id": "4",
@@ -87,16 +104,15 @@ FIELDS = [
                                 "hints": [
                                     "Consider emerging social media trends",
                                     "Think about content scalability",
-                                    "Suggest ways to improve engagement"
-                                ]
-                            }
-                        ]
+                                    "Suggest ways to improve engagement",
+                                ],
+                            },
+                        ],
                     }
-                ]
+                ],
             }
-        ]
+        ],
     },
-
     {
         "name": "Health & Medicine",
         "description": "Explore medical cases, healthcare innovations, and clinical practice",
@@ -144,6 +160,18 @@ FIELDS = [
                                 },
                             ]
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Overemphasis on Technical Details",
+                                "description": "Getting too focused on technical genetic data without considering practical clinical applications",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Privacy Oversight",
+                                "description": "Neglecting patient privacy considerations when handling genetic information",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -216,6 +244,18 @@ FIELDS = [
                                 },
                             ],
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Premature Conclusions",
+                                "description": "Jumping to diagnostic conclusions based on initial IgE levels without considering other possibilities",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Incomplete Analysis",
+                                "description": "Failing to consider the full spectrum of laboratory findings in the diagnostic process",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -319,6 +359,18 @@ FIELDS = [
                                 },
                             ],
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Oversimplification",
+                                "description": "Treating Miranda rights as a simple checklist without understanding their deeper legal implications",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Historical Context Neglect",
+                                "description": "Failing to consider the historical context and evolution of criminal procedure rights",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -388,6 +440,18 @@ FIELDS = [
                                 },
                             ],
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Chain of Custody Breaks",
+                                "description": "Not maintaining proper documentation and handling procedures for digital evidence",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Data Alteration",
+                                "description": "Inadvertently modifying digital evidence during the collection process",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -468,6 +532,18 @@ FIELDS = [
                                 },
                             ],
                         },
+                        "pitfalls": [
+                            {
+                                "id": "p1",
+                                "title": "Risk Assessment Oversight",
+                                "description": "Underestimating the impact of high leverage on financial stability",
+                            },
+                            {
+                                "id": "p2",
+                                "title": "Market Timing Focus",
+                                "description": "Overemphasizing market timing instead of fundamental business analysis",
+                            },
+                        ],
                         "checkpoints": [
                             {
                                 "id": "1",
@@ -582,6 +658,7 @@ def seed_data():
                         learning_objectives=case_data["learning_objectives"],
                         context_materials=case_data["context_materials"],
                         checkpoints=case_data["checkpoints"],
+                        pitfalls=case_data["pitfalls"],
                         source_url=case_data["source_url"],
                         source_type=case_data["source_type"],
                         share_slug=case_data["share_slug"],

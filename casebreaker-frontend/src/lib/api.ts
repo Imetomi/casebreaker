@@ -11,6 +11,11 @@ interface ApiCaseStudy {
   description: string;
   difficulty: number;
   estimated_time: number;
+  pitfalls: Array<{
+    id: string;
+    title: string;
+    description: string;
+  }>;
 }
 
 // Mapped types for frontend
@@ -61,6 +66,11 @@ interface ApiCaseStudyDetail extends ApiCaseStudy {
   last_updated: string;
   created_at: string;
   subtopic: Subtopic;
+  pitfalls: Array<{
+    id: string;
+    title: string;
+    description: string;
+  }>;
 }
 
 export interface CaseStudy extends CaseStudyListItem {
@@ -77,6 +87,11 @@ export interface CaseStudy extends CaseStudyListItem {
     title: string;
     description: string;
     hints: string[];
+  }>;
+  pitfalls: Array<{
+    id: string;
+    title: string;
+    description: string;
   }>;
 }
 
@@ -187,6 +202,20 @@ export class ApiClient {
         },
       }
     );
+  
+    return response.json();
+  }
+
+  async getMessages(sessionId: number): Promise<ChatMessage[]> {
+    const response = await this.fetchWithRetry(
+      `${API_BASE_URL}/sessions/${sessionId}/messages`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     return response.json();
   }
@@ -253,6 +282,7 @@ export class ApiClient {
         cards: apiCase.context_materials?.cards || [],
       },
       checkpoints: apiCase.checkpoints || [],
+      pitfalls: apiCase.pitfalls || [],
     };
   }
 

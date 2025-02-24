@@ -44,6 +44,7 @@ class CaseStudy(Base):
     learning_objectives = Column(JSONEncodedDict)
     context_materials = Column(JSONEncodedDict)
     checkpoints = Column(JSONEncodedDict)
+    pitfalls = Column(JSONEncodedDict)
     source_url = Column(String)
     source_type = Column(String)  # SCRAPED or GENERATED
     last_updated = Column(DateTime, default=datetime.utcnow)

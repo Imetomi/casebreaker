@@ -15,7 +15,7 @@ export default function CaseChatPage() {
   const [sessionId, setSessionId] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [caseStudy, setCaseStudy] = useState<any>(null);
+  const [caseStudy, setCaseStudy] = useState<any>({ pitfalls: [] });
   const caseId = parseInt(params.caseId as string);
 
   useEffect(() => {
@@ -84,12 +84,9 @@ Feel free to ask any questions!`;
         <Heading size="8" className="text-center mb-4" highContrast>
           {caseStudy.title}
         </Heading>
-        <Text size="4" as="p" color="gray" className="text-center">
-          Discuss the case with our AI tutor to deepen your understanding.
-        </Text>
       </div>
 
-      <Chat 
+      <Chat
         sessionId={sessionId}
         initialMessage={initialMessage}
       />

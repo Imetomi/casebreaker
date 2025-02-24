@@ -8,7 +8,7 @@ import { api } from '@/lib/api';
 import type { CaseStudy } from '@/lib/api';
 import { CheckpointList } from './CheckpointList';
 import { ContextView } from './ContextView';
-import { Button, Flex } from '@radix-ui/themes';
+import { Button, Flex, Text } from '@radix-ui/themes';
 import { MessageSquare, BookOpen } from 'lucide-react';
 
 interface ChatProps {
@@ -89,12 +89,30 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
           </Button>
         </Flex>
 
-        {caseStudy?.checkpoints && (
-          <CheckpointList
-            checkpoints={caseStudy.checkpoints}
-            completedCheckpoints={completedCheckpoints}
-          />
-        )}
+        <div className="space-y-4">
+          {caseStudy?.checkpoints && (
+            <CheckpointList
+              checkpoints={caseStudy.checkpoints}
+              completedCheckpoints={completedCheckpoints}
+            />
+          )}
+          
+          {caseStudy?.pitfalls && (
+            <div className="w-56 h-fit bg-white rounded-lg border shadow-sm p-4 space-y-4">
+              <h3 className="font-semibold text-gray-900">Pitfalls to Avoid</h3>
+              <div className="space-y-3">
+                {caseStudy.pitfalls.map((pitfall: any, index: number) => (
+                  <div key={index} className="flex items-start gap-2 p-2">
+                    <div className="h-5 w-5 rounded border border-gray-300 bg-white flex items-center justify-center" />
+                    <label className="text-sm leading-none pt-0.5 text-gray-700">
+                      {pitfall.title}
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="flex-1">
