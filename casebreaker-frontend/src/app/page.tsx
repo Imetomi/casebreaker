@@ -26,8 +26,8 @@ export default async function Home() {
             {" "}with <br/>real-world case studies
           </Heading>
             <Text size="4" as="p" color="gray" weight="medium" className="mb-12 leading-relaxed">
-              Dive into interactive case studies and gain practical knowledge in your field
-              with an intelligent agent to help you. 🤖
+              Choose from <Text weight="bold" color="gray" highContrast>over 1000 case studies</Text> and gain practical knowledge in your field
+              with an intelligent agent to help you and. 🤖
             </Text>
             <Button size="4" variant="solid" asChild>
               <Link href="/fields" className="no-underline">
@@ -103,7 +103,7 @@ export default async function Home() {
           </Text>
         </div>
         <Grid columns={{ initial: '1', sm: '2' }} gap="8">
-          {fields.map((field: any) => (
+          {fields.slice(0, 4).map((field: any) => (
             <FieldCard 
               key={field.id} 
               id={field.id}
@@ -126,6 +126,7 @@ export default async function Home() {
 
     {/* Available Exams Section per counrty */}
     <div className="relative py-16">
+      <div className="absolute inset-0 bg-gradient-to-b from-cyan-100 to-white" style={{ zIndex: 0 }} />
       <Container className="relative" style={{ zIndex: 1 }}>
         <div className="text-center">
           {/* International cases section */}

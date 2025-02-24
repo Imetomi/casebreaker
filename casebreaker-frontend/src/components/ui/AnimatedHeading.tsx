@@ -4,12 +4,14 @@ import { TypeAnimation } from 'react-type-animation';
 
 export function AnimatedHeading() {
   return (
-    <span className="inline-block min-w-[120px] transition-all duration-200">
+    <span className="inline-block min-w-[20px] transition-all duration-200">
       <TypeAnimation
         sequence={[
           'for exams',
           2000,
           'to diagnose',
+          2000,
+          'medicine',
           2000,
           'jurisdiction',
           2000,
