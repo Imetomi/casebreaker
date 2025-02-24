@@ -51,10 +51,12 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
     const fetchInitialData = async () => {
       try {
         const session = await api.getSession(sessionId);
+        console.log('Session:', session);
         const [study] = await Promise.all([
           api.getCaseStudy(session.case_study_id),
         ]);
         console.log('Fetched case study:', study);
+        console.log('Context materials:', study.contextMaterials);
         setCaseStudy(study);
         setCompletedCheckpoints(session.completed_checkpoints || []);
       } catch (error) {
@@ -77,7 +79,10 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
           </Button>
           <Button
             variant={view === 'context' ? 'solid' : 'surface'}
-            onClick={() => setView('context')}
+            onClick={() => {
+              console.log('Switching to context view');
+              setView('context');
+            }}
           >
             <BookOpen className="w-4 h-4" />
             Context
@@ -124,7 +129,12 @@ export function Chat({ sessionId, initialMessage }: ChatProps) {
         ) : (
           <>
             {!caseStudy && <div className="text-center p-4">Loading case study...</div>}
-            {caseStudy && <ContextView caseStudy={caseStudy} />}
+            {caseStudy && (
+              <>
+                {console.log('Rendering ContextView with:', caseStudy)}
+                <ContextView caseStudy={caseStudy} />
+              </>
+            )}
           </>
         )}
       </div>

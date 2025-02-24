@@ -64,7 +64,8 @@ class ClaudeService:
         try:
             response = self.client.messages.create(
                 model=self.model,
-                max_tokens=1024,
+                max_tokens=4096,
+                temperature=0.7,
                 system=system_prompt,
                 messages=claude_messages,
                 stream=True,

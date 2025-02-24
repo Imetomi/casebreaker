@@ -56,47 +56,11 @@ export default async function CasePage({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Context Materials */}
-          {(caseStudy.contextMaterials.background || caseStudy.contextMaterials.keyConcepts.length > 0 || caseStudy.contextMaterials.requiredReading) && (
-            <Card className="p-6 h-full">
-              <Flex gap="2" align="center" mb="4">
-                <Book className="w-5 h-5" />
-                <Heading size="4">Context Materials</Heading>
-              </Flex>
-              <div className="space-y-6">
-                {caseStudy.contextMaterials.background && (
-                  <div>
-                    <Text as="p" size="2" weight="bold" mb="2">Background</Text>
-                    <Text as="p" size="2" color="gray">{caseStudy.contextMaterials.background}</Text>
-                  </div>
-                )}
-                {caseStudy.contextMaterials.keyConcepts.length > 0 && (
-                  <div>
-                    <Text as="p" size="2" weight="bold" mb="2">Key Concepts</Text>
-                    <ul className="list-disc pl-5 space-y-1">
-                      {caseStudy.contextMaterials.keyConcepts.map((concept, index) => (
-                        <li key={index}>
-                          <Text as="p" size="2" color="gray">{concept}</Text>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                {caseStudy.contextMaterials.requiredReading && (
-                  <div>
-                    <Text as="p" size="2" weight="bold" mb="2">Required Reading</Text>
-                    <Text as="p" size="2" color="gray">{caseStudy.contextMaterials.requiredReading}</Text>
-                  </div>
-                )}
-              </div>
-            </Card>
-          )}
-
+        <div className="max-w-[30rem] mx-auto">
           {/* Learning Objectives */}
           {caseStudy.learningObjectives.length > 0 && (
-            <Card className="p-6 h-full">
-              <Flex gap="2" align="center" mb="4">
+            <Card className="p-6">
+              <Flex gap="2" align="center" mb="4" justify="center">
                 <Lightbulb className="w-5 h-5" />
                 <Heading size="4">Learning Objectives</Heading>
               </Flex>

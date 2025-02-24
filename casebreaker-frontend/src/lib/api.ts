@@ -44,9 +44,10 @@ interface ApiCheckpoint {
 }
 
 interface ApiContextMaterials {
-  background: string;
-  key_concepts: string[];
-  required_reading: string;
+  cards: Array<{
+    title: string;
+    description: string;
+  }>;
 }
 
 interface ApiCaseStudyDetail extends ApiCaseStudy {
@@ -66,9 +67,10 @@ export interface CaseStudy extends CaseStudyListItem {
   specialization: string;
   learningObjectives: string[];
   contextMaterials: {
-    background: string;
-    keyConcepts: string[];
-    requiredReading: string;
+    cards: Array<{
+      title: string;
+      description: string;
+    }>;
   };
   checkpoints: Array<{
     id: string;
@@ -248,9 +250,7 @@ export class ApiClient {
       specialization: apiCase.specialization || '',
       learningObjectives: apiCase.learning_objectives || [],
       contextMaterials: {
-        background: apiCase.context_materials?.background || '',
-        keyConcepts: apiCase.context_materials?.key_concepts || [],
-        requiredReading: apiCase.context_materials?.required_reading || '',
+        cards: apiCase.context_materials?.cards || [],
       },
       checkpoints: apiCase.checkpoints || [],
     };

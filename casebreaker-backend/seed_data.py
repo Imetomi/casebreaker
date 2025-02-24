@@ -6,6 +6,98 @@ from casebreaker_backend.models import Field, Subtopic, CaseStudy
 # Field definitions with unique Unsplash images
 FIELDS = [
     {
+        "name": "Marketing",
+        "description": "Explore marketing strategies, consumer behavior, and brand development",
+        "icon_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=60",
+        "subtopics": [
+            {
+                "name": "Digital Marketing",
+                "description": "Modern digital marketing strategies and analytics",
+                "cases": [
+                    {
+                        "title": "Netflix's Content Marketing Revolution",
+                        "description": "Analysis of Netflix's innovative approach to social media and content marketing strategy",
+                        "difficulty": 2,
+                        "specialization": "Content Marketing",
+                        "source_url": "https://about.netflix.com/en/news/social-marketing",
+                        "source_type": "case_study",
+                        "share_slug": "netflix-content-marketing-revolution",
+                        "estimated_time": 45,
+                        "learning_objectives": [
+                            "Analyze Netflix's social media engagement strategies",
+                            "Evaluate the effectiveness of multi-platform content distribution",
+                            "Understand the role of data analytics in content personalization",
+                            "Assess the impact of brand voice in social media success"
+                        ],
+                        "context_materials": {
+                            "cards": [
+                                {
+                                    "title": "Netflix's Social Media Presence",
+                                    "description": "Netflix maintains distinct brand voices across platforms: witty on Twitter, visual on Instagram, and engaging on TikTok. Their social media team creates platform-specific content that resonates with each audience."
+                                },
+                                {
+                                    "title": "Content Distribution Strategy",
+                                    "description": "Netflix employs a multi-platform approach, creating behind-the-scenes content, memes, and show clips. They use data analytics to determine optimal posting times and content types for each platform."
+                                },
+                                {
+                                    "title": "Engagement Metrics",
+                                    "description": "Key performance indicators include engagement rates, follower growth, and content virality. Netflix's social media accounts consistently outperform industry averages in these metrics."
+                                },
+                                {
+                                    "title": "Brand Voice Guidelines",
+                                    "description": "Netflix's brand voice is characterized by humor, pop culture references, and authentic fan engagement. Their social media team follows strict guidelines while maintaining a casual, relatable tone."
+                                }
+                            ]
+                        },
+                        "checkpoints": [
+                            {
+                                "id": "1",
+                                "title": "Platform Analysis",
+                                "description": "Examine Netflix's presence across different social media platforms",
+                                "hints": [
+                                    "Compare content styles across platforms",
+                                    "Look for platform-specific engagement strategies",
+                                    "Note differences in posting frequency and timing"
+                                ]
+                            },
+                            {
+                                "id": "2",
+                                "title": "Content Strategy Review",
+                                "description": "Analyze the types of content and their effectiveness",
+                                "hints": [
+                                    "Identify different content categories",
+                                    "Consider how content ties to streaming releases",
+                                    "Evaluate engagement metrics for different content types"
+                                ]
+                            },
+                            {
+                                "id": "3",
+                                "title": "Data Analysis",
+                                "description": "Review the role of data in content optimization",
+                                "hints": [
+                                    "Look at how Netflix uses engagement metrics",
+                                    "Consider the role of A/B testing",
+                                    "Examine content performance patterns"
+                                ]
+                            },
+                            {
+                                "id": "4",
+                                "title": "Strategy Recommendations",
+                                "description": "Develop recommendations for improving the strategy",
+                                "hints": [
+                                    "Consider emerging social media trends",
+                                    "Think about content scalability",
+                                    "Suggest ways to improve engagement"
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
         "name": "Health & Medicine",
         "description": "Explore medical cases, healthcare innovations, and clinical practice",
         "icon_url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&auto=format&fit=crop&q=60",
@@ -25,13 +117,32 @@ FIELDS = [
                             "Ethical considerations in genetic medicine",
                         ],
                         "context_materials": {
-                            "background": "Evolution of genomic medicine",
-                            "key_concepts": [
-                                "DNA sequencing technologies",
-                                "Pharmacogenomics",
-                                "Genetic counseling principles",
-                            ],
-                            "required_reading": "Principles of Genomic Medicine, 2nd Edition",
+                            "cards": [
+                                {
+                                    "title": "Genomic Medicine Overview",
+                                    "description": "Genomic medicine involves using genomic information about an individual as part of their clinical care. It includes genetic testing and counseling to guide treatment decisions.",
+                                },
+                                {
+                                    "title": "Genetic Testing",
+                                    "description": "Genetic testing involves analyzing DNA to identify changes in genes that may cause illness or disease. It helps in diagnosing genetic disorders and tailoring personalized treatments.",
+                                },
+                                {
+                                    "title": "Ethical Considerations",
+                                    "description": "Ethical considerations in genetic medicine include informed consent, privacy of genetic information, and the potential for genetic discrimination.",
+                                },
+                                {
+                                    "title": "Clinical Integration",
+                                    "description": "Integrating genetic information into clinical practice involves using genetic tests to inform diagnosis, treatment, and prevention strategies.",
+                                },
+                                {
+                                    "title": "Key Concepts",
+                                    "description": "Key concepts include DNA sequencing technologies, pharmacogenomics, and genetic counseling principles.",
+                                },
+                                {
+                                    "title": "Required Reading",
+                                    "description": "Principles of Genomic Medicine, 2nd Edition provides comprehensive insights into the field of genomic medicine.",
+                                },
+                            ]
                         },
                         "checkpoints": [
                             {
@@ -75,18 +186,35 @@ FIELDS = [
                             "Interpret serum protein electrophoresis and immunofixation results",
                             "Understand the diagnostic approach to monoclonal gammopathies",
                             "Evaluate laboratory interferents and validation methods",
-                            "Analyze the relationship between clinical presentation and laboratory findings"
+                            "Analyze the relationship between clinical presentation and laboratory findings",
                         ],
                         "context_materials": {
-                            "background": "Clinical laboratory investigation of monoclonal gammopathies",
-                            "key_concepts": [
-                                "Serum protein electrophoresis",
-                                "Immunoglobulin quantification",
-                                "Monoclonal gammopathy diagnosis",
-                                "Laboratory test validation",
-                                "Flow cytometry in plasma cell disorders"
+                            "cards": [
+                                {
+                                    "title": "Laboratory Medicine Overview",
+                                    "description": "Laboratory medicine focuses on the analysis of bodily fluids and tissues for diagnostic purposes. It plays a critical role in disease detection and management.",
+                                },
+                                {
+                                    "title": "Serum Protein Electrophoresis",
+                                    "description": "Serum protein electrophoresis is used to separate proteins in the blood based on their size and charge. It helps identify abnormal protein levels indicative of disease.",
+                                },
+                                {
+                                    "title": "Monoclonal Gammopathy Diagnosis",
+                                    "description": "Monoclonal gammopathy is diagnosed through serum protein electrophoresis, which identifies abnormal monoclonal protein bands. Further tests, such as immunofixation electrophoresis and bone marrow biopsy, help confirm the diagnosis and assess the extent of plasma cell proliferation.",
+                                },
+                                {
+                                    "title": "Laboratory Test Validation",
+                                    "description": "Validation of laboratory tests ensures accuracy and reliability, involving calibration, quality control, and proficiency testing.",
+                                },
+                                {
+                                    "title": "Key Concepts",
+                                    "description": "Key concepts include serum protein electrophoresis, immunoglobulin quantification, and laboratory test validation.",
+                                },
+                                {
+                                    "title": "Required Reading",
+                                    "description": "ADLM Clinical Case Studies 2025: High IgE Level Case provides detailed case studies for practical understanding.",
+                                },
                             ],
-                            "required_reading": "ADLM Clinical Case Studies 2025: High IgE Level Case"
                         },
                         "checkpoints": [
                             {
@@ -95,8 +223,8 @@ FIELDS = [
                                 "description": "Analyze the patient's presenting symptoms and initial findings",
                                 "hints": [
                                     "Consider the significance of hemoptysis in relation to the patient's history",
-                                    "Review the thoracic scan findings and their implications"
-                                ]
+                                    "Review the thoracic scan findings and their implications",
+                                ],
                             },
                             {
                                 "id": "2",
@@ -104,8 +232,8 @@ FIELDS = [
                                 "description": "Interpret the initial laboratory findings and their clinical significance",
                                 "hints": [
                                     "Focus on the IgE levels and their reference ranges",
-                                    "Evaluate the complete blood count abnormalities"
-                                ]
+                                    "Evaluate the complete blood count abnormalities",
+                                ],
                             },
                             {
                                 "id": "3",
@@ -113,8 +241,8 @@ FIELDS = [
                                 "description": "Evaluate the serum protein electrophoresis and immunofixation results",
                                 "hints": [
                                     "Examine the gamma-globulin fraction abnormalities",
-                                    "Consider the significance of the lambda monoclonal band"
-                                ]
+                                    "Consider the significance of the lambda monoclonal band",
+                                ],
                             },
                             {
                                 "id": "4",
@@ -122,8 +250,8 @@ FIELDS = [
                                 "description": "Analyze bone marrow findings and molecular studies",
                                 "hints": [
                                     "Review flow cytometry markers in plasma cell disorders",
-                                    "Consider the significance of t(11;14) translocation"
-                                ]
+                                    "Consider the significance of t(11;14) translocation",
+                                ],
                             },
                             {
                                 "id": "5",
@@ -131,17 +259,17 @@ FIELDS = [
                                 "description": "Synthesize all findings to reach the final diagnosis",
                                 "hints": [
                                     "Review criteria for MGUS vs Multiple Myeloma",
-                                    "Consider the significance of follow-up findings"
-                                ]
-                            }
+                                    "Consider the significance of follow-up findings",
+                                ],
+                            },
                         ],
                         "source_url": "https://myadlm.org/science-and-research/clinical-chemistry/clinical-case-studies/2025/an-unexpectedly-high-ige-level-during-allergic-exploration",
                         "source_type": "EXTERNAL",
                         "share_slug": "unexpected-high-ige-case",
-                        "estimated_time": 25
+                        "estimated_time": 25,
                     }
-                ]
-            }
+                ],
+            },
         ],
     },
     {
@@ -164,12 +292,32 @@ FIELDS = [
                             "Constitutional protections",
                         ],
                         "context_materials": {
-                            "background": "1966 Supreme Court case",
-                            "key_principles": [
-                                "Right to remain silent",
-                                "Right to attorney",
+                            "cards": [
+                                {
+                                    "title": "Miranda Rights Overview",
+                                    "description": "Miranda rights are a legal requirement ensuring that individuals are informed of their rights during an arrest, including the right to remain silent and the right to an attorney.",
+                                },
+                                {
+                                    "title": "Police Procedure",
+                                    "description": "Police procedures involve the standardized methods used by law enforcement to ensure legal compliance and protect individual rights during investigations.",
+                                },
+                                {
+                                    "title": "Constitutional Protections",
+                                    "description": "Constitutional protections safeguard individual rights against government actions, ensuring due process and equal protection under the law.",
+                                },
+                                {
+                                    "title": "Landmark Case Analysis",
+                                    "description": "Analyzing landmark cases like Miranda v. Arizona helps understand the evolution of legal precedents and their impact on modern law enforcement.",
+                                },
+                                {
+                                    "title": "Key Concepts",
+                                    "description": "Key concepts include the right to remain silent and the right to an attorney.",
+                                },
+                                {
+                                    "title": "Required Reading",
+                                    "description": "Miranda v. Arizona, 384 U.S. 436 (1966) is a foundational case for understanding Miranda rights and their application.",
+                                },
                             ],
-                            "required_reading": "Miranda v. Arizona, 384 U.S. 436 (1966)",
                         },
                         "checkpoints": [
                             {
@@ -213,13 +361,32 @@ FIELDS = [
                             "Privacy considerations and legal requirements",
                         ],
                         "context_materials": {
-                            "background": "Digital age criminal procedure",
-                            "key_concepts": [
-                                "Digital forensics principles",
-                                "Evidence preservation techniques",
-                                "Legal framework for digital evidence",
+                            "cards": [
+                                {
+                                    "title": "Digital Forensics Overview",
+                                    "description": "Digital forensics involves the recovery and investigation of material found in digital devices, often related to computer crime. It includes data preservation, analysis, and presentation in court.",
+                                },
+                                {
+                                    "title": "Evidence Preservation",
+                                    "description": "Preserving digital evidence involves securing and maintaining the integrity of data to ensure it is admissible in court. It includes proper handling and storage procedures.",
+                                },
+                                {
+                                    "title": "Legal Framework",
+                                    "description": "The legal framework for digital evidence includes laws and regulations governing the collection, preservation, and use of digital data in legal proceedings.",
+                                },
+                                {
+                                    "title": "Chain of Custody",
+                                    "description": "Chain of custody refers to the documentation and handling of evidence to maintain its integrity and traceability from collection to presentation in court.",
+                                },
+                                {
+                                    "title": "Key Concepts",
+                                    "description": "Key concepts include digital forensics principles, evidence preservation techniques, and the legal framework for digital evidence.",
+                                },
+                                {
+                                    "title": "Required Reading",
+                                    "description": "Digital Evidence and Computer Crime, 3rd Edition provides comprehensive coverage of digital forensics and its application in criminal investigations.",
+                                },
                             ],
-                            "required_reading": "Digital Evidence and Computer Crime, 3rd Edition",
                         },
                         "checkpoints": [
                             {
@@ -271,19 +438,35 @@ FIELDS = [
                             "Evaluate trade-offs between debt and equity financing",
                             "Understand special-purpose entities and bankruptcy-remote structures",
                             "Assess risk management in fleet financing and depreciation",
-                            "Examine market reactions to corporate financing decisions"
+                            "Examine market reactions to corporate financing decisions",
                         ],
                         "context_materials": {
-                            "background": "Evolution of Hertz's capital structure from 1918 to 2019",
-                            "key_concepts": [
-                                "Asset-Backed Securities (ABS)",
-                                "Special Purpose Entities",
-                                "Program vs Non-Program Vehicles",
-                                "Capital Structure Theory",
-                                "Rights Offerings",
-                                "Market Signal Theory"
+                            "cards": [
+                                {
+                                    "title": "Corporate Finance Overview",
+                                    "description": "Corporate finance involves managing a company's financial resources to achieve its goals, including investment decisions, capital structuring, and financial risk management.",
+                                },
+                                {
+                                    "title": "Capital Structure Strategy",
+                                    "description": "Capital structure strategy involves determining the optimal mix of debt and equity financing to minimize costs and maximize shareholder value.",
+                                },
+                                {
+                                    "title": "Risk Management",
+                                    "description": "Risk management in corporate finance involves identifying, assessing, and mitigating financial risks to protect a company's assets and earnings.",
+                                },
+                                {
+                                    "title": "Market Reactions",
+                                    "description": "Analyzing market reactions to corporate financing decisions helps understand investor sentiment and the impact on a company's stock price.",
+                                },
+                                {
+                                    "title": "Key Concepts",
+                                    "description": "Key concepts include asset-backed securities, capital structure theory, and market signal theory.",
+                                },
+                                {
+                                    "title": "Required Reading",
+                                    "description": "Yale SOM Case Study: Hertz Global Holdings (A) provides insights into corporate finance strategies and their implications.",
+                                },
                             ],
-                            "required_reading": "Yale SOM Case Study: Hertz Global Holdings (A)"
                         },
                         "checkpoints": [
                             {
@@ -292,8 +475,8 @@ FIELDS = [
                                 "description": "Evaluate Hertz's core business model and operational scale",
                                 "hints": [
                                     "Consider the significance of fleet size and location network",
-                                    "Analyze the importance of airport locations in their business model"
-                                ]
+                                    "Analyze the importance of airport locations in their business model",
+                                ],
                             },
                             {
                                 "id": "2",
@@ -301,8 +484,8 @@ FIELDS = [
                                 "description": "Analyze Hertz's asset-backed securities program and special-purpose entities",
                                 "hints": [
                                     "Examine the benefits of bankruptcy-remote trusts",
-                                    "Consider how ABS reduces interest costs"
-                                ]
+                                    "Consider how ABS reduces interest costs",
+                                ],
                             },
                             {
                                 "id": "3",
@@ -310,8 +493,8 @@ FIELDS = [
                                 "description": "Assess Hertz's approach to managing fleet depreciation risk",
                                 "hints": [
                                     "Compare Program vs Non-Program vehicle strategies",
-                                    "Analyze manufacturer repurchase agreements"
-                                ]
+                                    "Analyze manufacturer repurchase agreements",
+                                ],
                             },
                             {
                                 "id": "4",
@@ -319,8 +502,8 @@ FIELDS = [
                                 "description": "Evaluate Hertz's mix of secured and unsecured debt",
                                 "hints": [
                                     "Consider the implications of high leverage",
-                                    "Analyze the 2019 debt refinancing decision"
-                                ]
+                                    "Analyze the 2019 debt refinancing decision",
+                                ],
                             },
                             {
                                 "id": "5",
@@ -328,16 +511,16 @@ FIELDS = [
                                 "description": "Develop recommendations for Hertz's capital structure",
                                 "hints": [
                                     "Consider market reactions to equity issuance",
-                                    "Evaluate alternatives to rebalance the capital structure"
-                                ]
-                            }
+                                    "Evaluate alternatives to rebalance the capital structure",
+                                ],
+                            },
                         ],
                         "source_url": "https://cases.som.yale.edu/hertz-global-holdings-uses-debt-and-equity",
                         "source_type": "EXTERNAL",
                         "share_slug": "hertz-capital-structure",
-                        "estimated_time": 30
+                        "estimated_time": 30,
                     }
-                ]
+                ],
             }
         ],
     },
